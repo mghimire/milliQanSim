@@ -1,0 +1,9 @@
+Some issues that should be fixed:
+
+	* OSU setup currently doesn't work / is not specified
+	* OfflineAnalysis hardcoded to 3 stacks
+	* TSpectrum is known not to find all peaks, especially subpeaks. Perhaps someone who knows more about ROOT can try to fix this.
+	* Offline efficiencies for Back-to-Back and Particle trajectory seem to saturate as a function of electric charge at low values ~0.6 instead of 1.
+	* Actual plotting done with mathematica instead of ROOT, maybe this isn't a problem..?
+	* Template waveform currently implemented has sample period every 3.333ns, use the same waveform for every photo electron. 
+	* Background rate estimates done by hand each time, no systematic script to calculate them

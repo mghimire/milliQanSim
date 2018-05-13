@@ -1,0 +1,29 @@
+Comparing before and after Offline Analysis
+Before = Official Sensitivities
+After = mCP_UFO, defaultConfig, FullSettings.5b5.refl0.98.LG
+NBlocks = 1,20,20
+NStacks = 3
+OfflineTriggerStrategy = AllNeighbours
+WAVEFORMCUTOFF = 1.5
+CoincidenceThreshold = 15
+TimePerSample = 3.333333
+WAVEFORMWIDTH = 0.5
+
+Results before are shown after the |
+Very similar agreement!
+
+
+0.28 0.0010 25000 19	|	25000 23
+0.28 0.0034 100 25	|	10000 3500	
+0.28 0.0076 100 83	|	1000 910
+
+8.9 0.0010 25000 25	|	25000 30
+8.9 0.0034 100 37	|	10000 3500
+8.9 0.0076 100 92	|	1000 940
+
+92.6 0.0010 25000 36	|	25000 40
+92.6 0.0034 100 41	|	10000 4300
+92.6 0.0076 100 89	|	1000 920
+
+
+
