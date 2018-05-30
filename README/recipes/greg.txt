@@ -1,0 +1,11 @@
+outside of repo:
+
+mkdir build
+cd build
+source ~/work/milliq/simulation/MilliQ/milliQan/geant4/environ.sh
+~/work/milliq/simulation/MilliQ/milliQan/geant4/environ.sh
+
+cmake -DGeant4_DIR=/cvmfs/geant4.cern.ch/geant4/10.2/x86_64-slc6-gcc49-opt/lib64/Geant4-10.2.0/ /home/gregory/work/milliq/simulation/MilliQ/milliQan/geant4/
+sed -i 's|-lexpat|/cvmfs/sft.cern.ch/lcg/external/expat/2.0.1/x86_64-slc6-gcc48-opt/lib/libexpat.so|g' CMakeFiles/MilliQ.dir/link.txt
+sed -i 's|/usr/lib64/libexpat.so|/cvmfs/sft.cern.ch/lcg/external/expat/2.0.1/x86_64-slc6-gcc48-opt/lib/libexpat.so|g' CMakeFiles/MilliQ.dir/build.make
+make -j 4
