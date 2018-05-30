@@ -5,9 +5,9 @@
 
 
 #Paths Laptop
-HOME=/Users/chaffy/Work/Repository_MilliCharged/milliQan
+HOME=/home/gregory/work/milliq/simulation/MilliQ/milliQan
 RESULTS=$HOME/LaptopResults #Save results location
-G4DIR="$HOME""/../../geant4.10.02.p02-build/lib/Geant4-10.2.2/" #Geant4 Build/lib/Geant4 location
+G4DIR="/cvmfs/geant4.cern.ch/geant4/10.2/x86_64-slc6-gcc49-opt/lib64/Geant4-10.2.0/" #Geant4 Build/lib/Geant4 location 
 
 
 #Paths Cluster
