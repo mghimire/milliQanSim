@@ -1,0 +1,29 @@
+Executable = go.py
+Universe = vanilla
+Getenv = True
+request_memory = 2048MB
+Arguments = $(Process) mCP_UFO
+# Sample, mCP_UFO, JPsi, Y1S, Y2S, Y3S, cosmicmuons, am241
+
+Output = condor_$(Process).out
+Error = condor_$(Process).err
+Log = condor_$(Process).log
+
+should_transfer_files   = NO
+Transfer_Input_files = 
+Transfer_Output_files =
++IsLocalJob = true
+Rank = TARGET.IsLocalSlot
+
+request_cpus = 1
+request_memory = 2048MB
+hold = False
+Queue 552
+
+# Sample: 6
+# mCP_UFO: 552
+# JPsi: 84
+# YxS: 168
+# cosmicmuons: 1
+# am241: 1
+

@@ -693,6 +693,7 @@ void GeantSensitivities(string PathName, vector<string> Particle, string ConfigT
 		// with the details of the number of submitted events, the number of events that passed OnlineTrigger
 		// the charge and mass
 		fFilename+=PathName+"NEventsInitial."+Particle[i]+"."+ConfigType+".dat";
+cout << "fFilename = " << fFilename << endl;
 		std::string line;
         	infile.open(fFilename);
         	
@@ -711,13 +712,25 @@ void GeantSensitivities(string PathName, vector<string> Particle, string ConfigT
 
        			//iss >> MASS >> Q >> Number of Submitted Events in G4 before online triggers
 	         	iss >> a >> b >> c;
+// durp
+if(b.rfind("000") == b.size() - 3) {
+  b.erase(b.find_last_not_of("000" + 3, string::npos));
+}
+if(b.rfind("00") == b.size() - 2) {
+  b.erase(b.find_last_not_of("00" + 2, string::npos));
+}
+if(b.rfind("0") == b.size() - 1) {
+  b.erase(b.find_last_not_of("0" + 1, string::npos));
+}
 
 			// For each mass, Q, particle configuration, it spits out a ROOT file
 			string RootFile;
 			string fileName=Particle[i]+"."+a+"GeV"+"."+b+"Q"+"."+ConfigType;
 			RootFile+=PathName+fileName+".root";
+cout << "RootFile = " << RootFile << endl;
 
 			TFile *fMilliQ = new TFile(RootFile.c_str());
+			if(!fMilliQ) { cout << "fug: " << RootFile << endl; break; }
 			t1 = (TTree*)fMilliQ->Get("MilliQCAEN");
 
  	
@@ -776,6 +789,16 @@ void KinematicPlots(string PathName, vector<string> PlotParticle, string ConfigT
 
 		// We extract these data from the root files
 		string RootFile;
+// durp
+if(PlotCharge[b].rfind("000") == PlotCharge[b].size() - 3) {
+  PlotCharge[b].erase(PlotCharge[b].find_last_not_of("000" + 3, string::npos));
+}
+if(PlotCharge[b].rfind("00") == PlotCharge[b].size() - 2) {
+  PlotCharge[b].erase(PlotCharge[b].find_last_not_of("00" + 2, string::npos));
+}
+if(PlotCharge[b].rfind("0") == PlotCharge[b].size() - 1) {
+  PlotCharge[b].erase(PlotCharge[b].find_last_not_of("0" + 1, string::npos));
+}
 		RootFile+=PathName+PlotParticle[i]+"."+PlotMass[a]+"GeV"+"."+PlotCharge[b]+"Q"+"."+ConfigType+".root";
 		TFile *fMilliQ = new TFile(RootFile.c_str());
 		t1 = (TTree*)fMilliQ->Get("MilliQAll");

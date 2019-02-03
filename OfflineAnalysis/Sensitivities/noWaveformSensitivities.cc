@@ -31,10 +31,13 @@ using namespace std;
 // vector<double> NBkg {150, 300};
 // vector<double> NBkg {1, 1, 1, 5, 10}; // 1% milliQan
 // double afact=4./(20.*20.); // = 0.01
-vector<double> NBkg{4, 8, 38, 227, 454};  // 49% milliQan
-double afact = 0.49;
+//vector<double> NBkg{4, 8, 38, 227, 454};  // 49% milliQan
+//double afact = 0.49;
 // vector<double> NBkg {8, 16, 78, 464, 927}; // 100% milliQan
 // double afact=1;
+
+vector<double> NBkgd {0.0000810337, 0.000162067, 0.000810337, 0.00486203, 0.00972405};
+double afact = 1;
 
 // Set Luminosity to match the NSig vector
 // i.e Each unique Lumi entry corresponds to a Bkg entry. The Lumi entries are
@@ -87,6 +90,7 @@ void setVector(string fFilename, string fFilePath, string AcceptanceConfig,
   string fPath = fPath1.append(fPath2).c_str();
 
   std::ifstream infile;
+cout << "opening " << fPath << " + " << fFilename << endl;
   infile.open(fPath.append(fFilename).c_str());
 
   string line;
@@ -187,7 +191,7 @@ void setEfficiencyFit(vector<vector<double>> &myVec,
     Double_t p0 = fit->GetParameter(0);
     Double_t p1 = fit->GetParameter(1);
 
-    //		cout<<" p0 "<< p0 << " p1 "<<p1<<endl;
+    		cout<<" p0 "<< p0 << " p1 "<<p1<<endl;
 
     mySubVec.push_back(p0);
     mySubVec.push_back(p1);
@@ -373,7 +377,7 @@ int main(int argc, char *argv[]) {
 
   for (int i = 0; i < nMasses; i++)
     massListUFO.push_back(0.1 * TMath::Power(10., TMath::Sqrt(0.2 * i)));
-
+cout << "1" << endl;
   for (unsigned int i = 0; i < 14; i++) {
     massListYS.push_back(massListUFO[i]);
     if (i < 7) massListJPsi.push_back(massListUFO[i]);
@@ -426,6 +430,8 @@ int main(int argc, char *argv[]) {
   setEfficiencyFit(EffFitY2S, EffY2S);
   setEfficiencyFit(EffFitY3S, EffY3S);
 
+cout << "2" << endl;
+
   // Import Geometric Acceptances
   setVector(GeometricAcceptanceName + ".mCP_UFO.dat", FilePath,
             AcceptanceConfig, AcceptUFO);
@@ -437,6 +443,8 @@ int main(int argc, char *argv[]) {
             AcceptY2S);
   setVector(GeometricAcceptanceName + ".Y3S.dat", FilePath, AcceptanceConfig,
             AcceptY3S);
+
+cout << "3" << endl;
 
   Double_t lowRange = 0.001;
   Double_t upRange = 3;
@@ -450,6 +458,8 @@ int main(int argc, char *argv[]) {
 
   vector<vector<double>> Sensitivities;
   vector<double> sensitivityPre;
+
+cout << "4" << endl;
 
   // Calculate the Sensitivities
   int NProcess = 5;  // We can through the masses, this tells us how many
@@ -467,22 +477,28 @@ int main(int argc, char *argv[]) {
       fNEv->SetParameter(1 + i, XSection[i][j][0]);
     }
 
+cout << "efffit for 6-15" << endl;
     // Set EffFit for 6 - 15
     for (unsigned int i = 0; i < NProcess; i++) {
+cout << "i j = " << i << " " << j << endl;
       fNEv->SetParameter(6 + 2 * i, EffFit[i][j][0]);
       fNEv->SetParameter(6 + 2 * i + 1, EffFit[i][j][1]);
+cout << "kay" << endl;
     }
+cout << "accept for 16-30" << endl;
     // Set Accept for 16 - 30
     for (unsigned int i = 0; i < NProcess; i++) {
       fNEv->SetParameter(16 + 3 * i, Accept[i][j][0]);
       fNEv->SetParameter(16 + 3 * i + 1, Accept[i][j][1]);
       fNEv->SetParameter(16 + 3 * i + 2, Accept[i][j][2]);
     }
+cout << "num procs" << endl;
     // Set Number of Processes
     fNEv->SetParameter(32, NProcess);
     sensitivityPre.clear();
     for (unsigned int a = 0; a < NSig.size(); a++) {
 
+cout << "lumi for 31 a = " << a << endl;
       // Set Lumi for 31
       fNEv->SetParameter(31, Lumi[a]);
       // Set NSig for 0
@@ -498,6 +514,8 @@ int main(int argc, char *argv[]) {
     }
     Sensitivities.push_back(sensitivityPre);
   }
+
+cout << "5" << endl;
 
   // Output in a form mathematica can read for doing easy plotting
   ofstream output;

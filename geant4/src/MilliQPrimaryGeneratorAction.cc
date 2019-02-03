@@ -154,7 +154,8 @@ void MilliQPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 
   MoNorm = sqrt(pow(xMo, 2) + pow(yMo, 2) + pow(zMo, 2));
 
-  if(neventLHE % 100 == 0) G4cout <<"neventLHE "<<neventLHE<<G4endl;
+//durp
+  if(neventLHE % 1 == 0) G4cout <<"neventLHE "<<neventLHE<<G4endl;
 
   //	G4cout << "xMoGun " << xMo << " yMoGun " << yMo << " zMoGun " << zMo << " xGun " << x0 << " yGun " << y0 << " zGun " << z0 << G4endl;
   //	G4cout << "nevent " << neventLHE << " Q " << qmeList[neventLHE][0] << " M " << qmeList[neventLHE][1] << " E "<< qmeList[neventLHE][2] << G4endl;
