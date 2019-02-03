@@ -106,15 +106,15 @@ void MilliQDetectorConstruction::ReadGeometryConfiguration() {
   OutterShieldName = fGeometryPTree.get<G4String>("DetectorGeometry.OutterShieldMaterial");
 
   InnerShieldThickness  = G4ThreeVector(fGeometryPTree.get<G4double>("DetectorGeometry.InnerShieldThickness_X") * cm,
-		  	  	  	  	  	  	  	  	fGeometryPTree.get<G4double>("DetectorGeometry.InnerShieldThickness_Y") * cm,
-										fGeometryPTree.get<G4double>("DetectorGeometry.InnerShieldThickness_Z") * cm);
+					fGeometryPTree.get<G4double>("DetectorGeometry.InnerShieldThickness_Y") * cm,
+					fGeometryPTree.get<G4double>("DetectorGeometry.InnerShieldThickness_Z") * cm);
   OutterShieldThickness  = G4ThreeVector(fGeometryPTree.get<G4double>("DetectorGeometry.OutterShieldThickness_X") * cm,
-		  	  	  	  	  	  	  	  	fGeometryPTree.get<G4double>("DetectorGeometry.OutterShieldThickness_Y") * cm,
-										fGeometryPTree.get<G4double>("DetectorGeometry.OutterShieldThickness_Z") * cm);
+					 fGeometryPTree.get<G4double>("DetectorGeometry.OutterShieldThickness_Y") * cm,
+					 fGeometryPTree.get<G4double>("DetectorGeometry.OutterShieldThickness_Z") * cm);
 
   DetectorInnerShieldGap = G4ThreeVector(fGeometryPTree.get<G4double>("DetectorGeometry.DetectorInnerShieldGap_X") * cm,
-		  	  	  	  	  	  	  	  	 fGeometryPTree.get<G4double>("DetectorGeometry.DetectorInnerShieldGap_Y") * cm,
-										 fGeometryPTree.get<G4double>("DetectorGeometry.DetectorInnerShieldGap_Z") * cm);
+					 fGeometryPTree.get<G4double>("DetectorGeometry.DetectorInnerShieldGap_Y") * cm,
+					 fGeometryPTree.get<G4double>("DetectorGeometry.DetectorInnerShieldGap_Z") * cm);
 
 
 }
@@ -270,23 +270,23 @@ void MilliQDetectorConstruction::DefineMaterials() {
 
   // Aluminum
   fAluminiumMaterial =nist->FindOrBuildMaterial("G4_Al");
-		  //new G4Material("Aluminium", //name
-				       //                       13., //number
-				       //                       26.98 * g / mole, //wieght
-				       //                       2.7 * g / cm3); //density
+  //new G4Material("Aluminium", //name
+  //                       13., //number
+  //                       26.98 * g / mole, //wieght
+  //                       2.7 * g / cm3); //density
 
   // Vacuum
   fVacuumMaterial = new G4Material("Vacuum", //name
-				                           1., //atomic number
-				                           1.01 * g / mole, //weight
-				                           universe_mean_density, //density
-				                           kStateGas, //state
-  				                         0.1 * kelvin, //tempature
-				                           1.e-19 * pascal); //presure
+				   1., //atomic number
+				   1.01 * g / mole, //weight
+				   universe_mean_density, //density
+				   kStateGas, //state
+				   0.1 * kelvin, //tempature
+				   1.e-19 * pascal); //presure
   // Air
   fAirMaterial = new G4Material("Air", //name
-				                        1.29 * mg / cm3, //density
-				                        2); //n elements
+				1.29 * mg / cm3, //density
+				2); //n elements
   fAirMaterial->AddElement(fN, 70 * perCent); //compose of nitrogen
   fAirMaterial->AddElement(fO, 30 * perCent); //compose of oxegen
 
@@ -309,7 +309,7 @@ void MilliQDetectorConstruction::DefineMaterials() {
 
   fScintillatorMaterial = new G4Material("Scintillator", //name
                                          fScintDensity,
-					                               2); //n elements
+					 2); //n elements
   fScintillatorMaterial->AddElement(fC, fScintCarbonContent);
   fScintillatorMaterial->AddElement(fH, fScintHydrogenContent);
 
@@ -400,8 +400,8 @@ G4VPhysicalVolume* MilliQDetectorConstruction::ConstructDetector() {
 
 
   if (fAlternate == 1) {
-	    ConstructCheckGeometry();
-	    return fWorldPVCheckPhysics;
+    ConstructCheckGeometry();
+    return fWorldPVCheckPhysics;
   }
 
 
@@ -449,22 +449,22 @@ G4VPhysicalVolume* MilliQDetectorConstruction::ConstructDetector() {
   G4double TotalStackEnd = TotalStackStart + fScint_x * NStacks + fBetweenBlockSpacing.x() * (NStacks - 1);
 
   G4ThreeVector InnerShieldHalfLength=
-		  G4ThreeVector(0.5 * (2 * fScintHouseThick + TotalStackEnd - TotalStackStart+ 2 * DetectorInnerShieldGap.x()),
-				  	   	0.5 * (NBlocks.y() * fScint_y + fBetweenBlockSpacing.y() * (NBlocks.y() - 1) + 2*DetectorInnerShieldGap.y()+ 8*fOffset.y()),
-						0.5 * (NBlocks.z() * fScint_z+ fBetweenBlockSpacing.z() * (NBlocks.z() - 1)+ 2*DetectorInnerShieldGap.z()+ 8*fOffset.z()));
+    G4ThreeVector(0.5 * (2 * fScintHouseThick + TotalStackEnd - TotalStackStart+ 2 * DetectorInnerShieldGap.x()),
+		  0.5 * (NBlocks.y() * fScint_y + fBetweenBlockSpacing.y() * (NBlocks.y() - 1) + 2*DetectorInnerShieldGap.y()+ 8*fOffset.y()),
+		  0.5 * (NBlocks.z() * fScint_z+ fBetweenBlockSpacing.z() * (NBlocks.z() - 1)+ 2*DetectorInnerShieldGap.z()+ 8*fOffset.z()));
 
 
   MilliQDetectorShield* Shield =
-		  new MilliQDetectorShield(worldLV,
-				  TotalStackStart,
-				  TotalStackEnd,
-				  InnerShieldThickness,
-				  OutterShieldThickness,
-				  InnerShieldHalfLength,
-				  fScintHouseThick,
-				  InnerShieldMaterial,
-				  OutterShieldMaterial);
-   Shield->ConstructShield();
+    new MilliQDetectorShield(worldLV,
+			     TotalStackStart,
+			     TotalStackEnd,
+			     InnerShieldThickness,
+			     OutterShieldThickness,
+			     InnerShieldHalfLength,
+			     fScintHouseThick,
+			     InnerShieldMaterial,
+			     OutterShieldMaterial);
+  Shield->ConstructShield();
 
 
 
@@ -479,46 +479,46 @@ G4VPhysicalVolume* MilliQDetectorConstruction::ConstructDetector() {
   // Detector Stacks - Logical Volume   (All these parameters are defined above)
   MilliQDetectorStackLV* aDetectorStackLV =
     new MilliQDetectorStackLV(stackHouseingV, //volume
-								              G4Material::GetMaterial("Air"), //material
-								              "Detector Stack H", //name
-								              0, //field manager
-								              0, //sensitve detector
-								              0, //user limits
-								              true, //optimise
+			      G4Material::GetMaterial("Air"), //material
+			      "Detector Stack H", //name
+			      0, //field manager
+			      0, //sensitve detector
+			      0, //user limits
+			      true, //optimise
 
-								              NBlocks, //number of blocks
-								              fBetweenBlockSpacing, //between block spacing
+			      NBlocks, //number of blocks
+			      fBetweenBlockSpacing, //between block spacing
 
-								              G4ThreeVector(fScint_x, fScint_y, fScint_z), //scintillator dimensions
-								              fScintHouseThick, //scintillator housing thickness (and Glass Radius Height)
-								              fLightGuideLength, //light guide inside scintillator
-											  fScintillatorHousingPT, // scintillator housing proprty table
+			      G4ThreeVector(fScint_x, fScint_y, fScint_z), //scintillator dimensions
+			      fScintHouseThick, //scintillator housing thickness (and Glass Radius Height)
+			      fLightGuideLength, //light guide inside scintillator
+			      fScintillatorHousingPT, // scintillator housing proprty table
 
-								              fPmtPhotoRad, //pmt Photocathode radius
-								              fPmtPhotoHeight, //pmt photocathode height
+			      fPmtPhotoRad, //pmt Photocathode radius
+			      fPmtPhotoHeight, //pmt photocathode height
 
-											  fLightGuideHousingPT, // light guide housing
+			      fLightGuideHousingPT, // light guide housing
 
-											  fPhotoCathodePT, // pmt photocathode property table
-								              pmt_SD, //pmt sensitive detector
-								              scint_SD); //scintillator sensitive detector
+			      fPhotoCathodePT, // pmt photocathode property table
+			      pmt_SD, //pmt sensitive detector
+			      scint_SD); //scintillator sensitive detector
 
 
 
   // Detector Stacks - Parameterisation
   MilliQDetectorStackParameterisation* fDetectorStackParameterisation =
     new MilliQDetectorStackParameterisation(NStacks, //n
-					                                  aDetectorStackLV->GetDimensions(), //block dimensions
-					                                  G4ThreeVector(1., 0., 0.), //alignment vector
-					                                  fOffset, //offset to remove background
-					                                  TotalStackStart, //start depth
-					                                  TotalStackEnd); //end depth
+					    aDetectorStackLV->GetDimensions(), //block dimensions
+					    G4ThreeVector(1., 0., 0.), //alignment vector
+					    fOffset, //offset to remove background
+					    TotalStackStart, //start depth
+					    TotalStackEnd); //end depth
 
   // Detector Stacks - Physical Volume
   new G4PVParameterised("Detector Stack Housing Physical Volume",
-			                  aDetectorStackLV, detectionRoomLV, kZAxis,
-			                  fDetectorStackParameterisation->GetNumberOfBlocks(),
-			                  fDetectorStackParameterisation);
+			aDetectorStackLV, detectionRoomLV, kZAxis,
+			fDetectorStackParameterisation->GetNumberOfBlocks(),
+			fDetectorStackParameterisation);
 
 
 
@@ -533,10 +533,10 @@ void MilliQDetectorConstruction::ConstructCheckGeometry() {
   G4cout << "This is an alternate geometry 'sandbox' which was used to check the radius of curvature "
     "for various charges and masses of the monopole given a magnetic field " << G4endl;
   G4cout << " We are not using magnetic fields currently"
-		  "So one would need to develop/check this section a bit if one wanted a B field"
-		  << G4endl;
+    "So one would need to develop/check this section a bit if one wanted a B field"
+	 << G4endl;
 
-    fWorldPVCheckPhysics = new G4PVPlacement(0, //rotation
+  fWorldPVCheckPhysics = new G4PVPlacement(0, //rotation
 					   G4ThreeVector(), //translation
 					   worldLV, //logical volume
 					   "World Physical Volume", //name

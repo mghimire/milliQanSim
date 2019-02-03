@@ -65,23 +65,23 @@ private:
   static MilliQMonopole*  theMonopole;
 
   MilliQMonopole(
-       const G4String&     aName,        G4double            mass,
-       G4double            width,        G4double            charge,   
-       G4int               iSpin,        G4int               iParity,    
-       G4int               iConjugation, G4int               iIsospin,   
-       G4int               iIsospin3,    G4int               gParity,
-       const G4String&     pType,        G4int               lepton,      
-       G4int               baryon,       G4int               encoding,
-       G4bool              stable,       G4double            lifetime,
-       G4DecayTable        *decaytable );
+		 const G4String&     aName,        G4double            mass,
+		 G4double            width,        G4double            charge,   
+		 G4int               iSpin,        G4int               iParity,    
+		 G4int               iConjugation, G4int               iIsospin,   
+		 G4int               iIsospin3,    G4int               gParity,
+		 const G4String&     pType,        G4int               lepton,      
+		 G4int               baryon,       G4int               encoding,
+		 G4bool              stable,       G4double            lifetime,
+		 G4DecayTable        *decaytable );
 
   virtual ~MilliQMonopole();
 
 public: 
   
   static MilliQMonopole* MonopoleDefinition(G4double mass = 100.*CLHEP::GeV,
-                                        G4double magCharge = 1.0, 
-                                        G4double elCharge  = 0.0);
+					    G4double magCharge = 1.0, 
+					    G4double elCharge  = 0.0);
 
   static MilliQMonopole* Monopole();
 

@@ -45,7 +45,7 @@ class G4Event;
 class MilliQRecorderBase;
 
 class MilliQEventAction : public G4UserEventAction {
- public:
+public:
 
   MilliQEventAction(MilliQRecorderBase*, const boost::property_tree::ptree pt);
   virtual ~MilliQEventAction();
@@ -77,7 +77,7 @@ class MilliQEventAction : public G4UserEventAction {
   G4float GetTimePerSample() { return timePERsample;}
 
 
- private:
+private:
 
   MilliQRecorderBase*   fRecorder;
   MilliQEventMessenger* fEventMessenger;

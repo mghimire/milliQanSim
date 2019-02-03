@@ -38,7 +38,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQEMPhysics::MilliQEMPhysics(const G4String& name)
-               :  G4VPhysicsConstructor(name)
+  :  G4VPhysicsConstructor(name)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -80,7 +80,7 @@ void MilliQEMPhysics::ConstructProcess()
   G4ComptonScattering* fComptonEffect = new G4ComptonScattering();
   G4GammaConversion* fPairProduction = new G4GammaConversion();
  
-    // Electron physics
+  // Electron physics
   G4eMultipleScattering* fElectronMultipleScattering =
     new G4eMultipleScattering();
   G4eIonisation* fElectronIonisation =
@@ -88,7 +88,7 @@ void MilliQEMPhysics::ConstructProcess()
   G4eBremsstrahlung* fElectronBremsStrahlung =
     new G4eBremsstrahlung();
  
-    //Positron physics
+  //Positron physics
   G4eMultipleScattering* fPositronMultipleScattering =
     new G4eMultipleScattering();
   G4eIonisation* fPositronIonisation =

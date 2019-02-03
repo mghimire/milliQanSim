@@ -46,22 +46,22 @@ class G4UIcmdWithADoubleAndUnit;
 
 class MilliQPrimaryGeneratorMessenger: public G4UImessenger
 {
-  public:
-    MilliQPrimaryGeneratorMessenger(MilliQPrimaryGeneratorAction*);
-    virtual ~MilliQPrimaryGeneratorMessenger();
+public:
+  MilliQPrimaryGeneratorMessenger(MilliQPrimaryGeneratorAction*);
+  virtual ~MilliQPrimaryGeneratorMessenger();
  
-    virtual void SetNewValue(G4UIcommand*, G4String);
+  virtual void SetNewValue(G4UIcommand*, G4String);
 
-  private:
-    MilliQPrimaryGeneratorAction* fAction;
-    G4UIcmdWithAString*        fRndmCmd;
-    G4UIcmdWithADoubleAndUnit* fSetXVertexCmd;
-    G4UIcmdWithADoubleAndUnit* fSetYVertexCmd;
-    G4UIcmdWithADoubleAndUnit* fSetZVertexCmd;
-    G4UIcmdWithADoubleAndUnit* fSetMomentumXVertexCmd;
-    G4UIcmdWithADoubleAndUnit* fSetMomentumYVertexCmd;
-    G4UIcmdWithADoubleAndUnit* fSetMomentumZVertexCmd;
-    G4UIcmdWithADoubleAndUnit* fSetCalibEnergyCmd;
+private:
+  MilliQPrimaryGeneratorAction* fAction;
+  G4UIcmdWithAString*        fRndmCmd;
+  G4UIcmdWithADoubleAndUnit* fSetXVertexCmd;
+  G4UIcmdWithADoubleAndUnit* fSetYVertexCmd;
+  G4UIcmdWithADoubleAndUnit* fSetZVertexCmd;
+  G4UIcmdWithADoubleAndUnit* fSetMomentumXVertexCmd;
+  G4UIcmdWithADoubleAndUnit* fSetMomentumYVertexCmd;
+  G4UIcmdWithADoubleAndUnit* fSetMomentumZVertexCmd;
+  G4UIcmdWithADoubleAndUnit* fSetCalibEnergyCmd;
 };
 
 #endif

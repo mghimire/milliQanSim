@@ -58,7 +58,7 @@ private:
   MilliQRunAction*             fMilliQRunAction;
     
   G4UIdirectory*         fActDir;
-//  G4UIcmdWithADouble*    fBinSizeCmd;
+  //  G4UIcmdWithADouble*    fBinSizeCmd;
   G4UIcmdWithAnInteger*  fVerboseCmd;
 };
 

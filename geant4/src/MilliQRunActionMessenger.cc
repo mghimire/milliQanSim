@@ -41,20 +41,20 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQRunActionMessenger::MilliQRunActionMessenger(MilliQRunAction * ra)
- : G4UImessenger(),
-   fMilliQRunAction(ra),
-   fActDir(0),
-//   fBinSizeCmd(0),
-   fVerboseCmd(0)
+  : G4UImessenger(),
+    fMilliQRunAction(ra),
+    fActDir(0),
+    //   fBinSizeCmd(0),
+    fVerboseCmd(0)
 {   
   fActDir = new G4UIdirectory("/testex/run/");
   fActDir->SetGuidance("run commands");
       
-/*  fBinSizeCmd = new G4UIcmdWithADouble("/testex/run/binSize", this);
-  fBinSizeCmd->SetGuidance("Set bin size.");
-  fBinSizeCmd->SetParameterName("binSize", false);
-  fBinSizeCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-*/
+  /*  fBinSizeCmd = new G4UIcmdWithADouble("/testex/run/binSize", this);
+      fBinSizeCmd->SetGuidance("Set bin size.");
+      fBinSizeCmd->SetParameterName("binSize", false);
+      fBinSizeCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+  */
   fVerboseCmd = new G4UIcmdWithAnInteger("/testex/run/verbose", this);
   fVerboseCmd->SetGuidance("Set verbose level.");
   fVerboseCmd->SetParameterName("verbose", false);
@@ -65,7 +65,7 @@ MilliQRunActionMessenger::MilliQRunActionMessenger(MilliQRunAction * ra)
 
 MilliQRunActionMessenger::~MilliQRunActionMessenger()
 {
-//  delete fBinSizeCmd;
+  //  delete fBinSizeCmd;
   delete fVerboseCmd;
   delete fActDir;
 }
@@ -74,11 +74,11 @@ MilliQRunActionMessenger::~MilliQRunActionMessenger()
 
 void MilliQRunActionMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 { 
-/*  if( command == fBinSizeCmd )
-   { fMilliQRunAction->SetBinSize(fBinSizeCmd->GetNewDoubleValue(newValue));}
-*/
+  /*  if( command == fBinSizeCmd )
+      { fMilliQRunAction->SetBinSize(fBinSizeCmd->GetNewDoubleValue(newValue));}
+  */
   if( command == fVerboseCmd )
-   { fMilliQRunAction->SetVerbose(fVerboseCmd->GetNewIntValue(newValue));}
+    { fMilliQRunAction->SetVerbose(fVerboseCmd->GetNewIntValue(newValue));}
 
 }
 

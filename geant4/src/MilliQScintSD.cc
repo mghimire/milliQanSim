@@ -57,7 +57,7 @@ MilliQScintSD::~MilliQScintSD() {}
 
 void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE){
   fScintCollection = new MilliQScintHitsCollection
-                      (SensitiveDetectorName,collectionName[0]);
+    (SensitiveDetectorName,collectionName[0]);
   //A way to keep all the hits of this event in one place if needed
   static G4int hitsCID = -1;
   if(hitsCID<0){
@@ -85,7 +85,7 @@ G4bool MilliQScintSD::ProcessHits(G4Step* aStep,G4TouchableHistory* ){
   G4int scintNumberBlock = aStep->GetPreStepPoint()->GetTouchable()->GetReplicaNumber(2);//GetReplicaNumber(1);
   G4int scintNumberStack = aStep->GetPreStepPoint()->GetTouchable()->GetReplicaNumber(3);//GetReplicaNumber(1);
   G4int scintNumber = scintNumberStack*NBlocks+scintNumberBlock;
- // G4cout<<"scintNumberBlock "<<scintNumberBlock<<" scintNumberStack "<<scintNumberStack<<" scintNumber "<<scintNumber<<G4endl;
+  // G4cout<<"scintNumberBlock "<<scintNumberBlock<<" scintNumberStack "<<scintNumberStack<<" scintNumber "<<scintNumber<<G4endl;
 
   G4double hitTime = thePrePoint->GetGlobalTime();
 

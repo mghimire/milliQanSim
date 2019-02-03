@@ -46,17 +46,17 @@ G4ParticleDefinition*  MilliQPrimaryGeneratorAction::fgPrimaryParticle = 0;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQPrimaryGeneratorMessenger::MilliQPrimaryGeneratorMessenger(
-                                           MilliQPrimaryGeneratorAction* action)
- : G4UImessenger(),
-   fAction(action),
-   fRndmCmd(0),
-   fSetXVertexCmd(0),
-   fSetYVertexCmd(0),
-   fSetZVertexCmd(0),
-   fSetMomentumXVertexCmd(0),
-   fSetMomentumYVertexCmd(0),
-   fSetMomentumZVertexCmd(0),
-   fSetCalibEnergyCmd(0)
+								 MilliQPrimaryGeneratorAction* action)
+  : G4UImessenger(),
+    fAction(action),
+    fRndmCmd(0),
+    fSetXVertexCmd(0),
+    fSetYVertexCmd(0),
+    fSetZVertexCmd(0),
+    fSetMomentumXVertexCmd(0),
+    fSetMomentumYVertexCmd(0),
+    fSetMomentumZVertexCmd(0),
+    fSetCalibEnergyCmd(0)
 
 {
   fRndmCmd = new G4UIcmdWithAString("/gun/random",this);
@@ -89,19 +89,19 @@ MilliQPrimaryGeneratorMessenger::MilliQPrimaryGeneratorMessenger(
   fSetMomentumXVertexCmd->SetGuidance(" Set momentum x direction of the primary vertex.");
   fSetMomentumXVertexCmd->SetParameterName("momentumxv",true);
   fSetMomentumXVertexCmd->SetDefaultValue(0.0);
-//  fSetMomentumXVertexCmd->SetDefaultUnit("None");
+  //  fSetMomentumXVertexCmd->SetDefaultUnit("None");
 
   fSetMomentumYVertexCmd = new G4UIcmdWithADoubleAndUnit("/gun/momentumyvertex",this);
   fSetMomentumYVertexCmd->SetGuidance(" Set momentum y direction of the primary vertex.");
   fSetMomentumYVertexCmd->SetParameterName("momentumyv",true);
   fSetMomentumYVertexCmd->SetDefaultValue(0.0);
-//  fSetMomentumYVertexCmd->SetDefaultUnit("None");
+  //  fSetMomentumYVertexCmd->SetDefaultUnit("None");
 
   fSetMomentumZVertexCmd = new G4UIcmdWithADoubleAndUnit("/gun/momentumzvertex",this);
   fSetMomentumZVertexCmd->SetGuidance(" Set momentum z direction of the primary vertex.");
   fSetMomentumZVertexCmd->SetParameterName("momentumzv",true);
   fSetMomentumZVertexCmd->SetDefaultValue(0.0);
-//  fSetMomentumZVertexCmd->SetDefaultUnit("None");
+  //  fSetMomentumZVertexCmd->SetDefaultUnit("None");
 
   fSetCalibEnergyCmd = new G4UIcmdWithADoubleAndUnit("/gun/calibenergy",this);
   fSetCalibEnergyCmd->SetGuidance(" Set CalibEnergy of the primary vertex, used for calibration mode.");
@@ -128,26 +128,26 @@ MilliQPrimaryGeneratorMessenger::~MilliQPrimaryGeneratorMessenger()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void MilliQPrimaryGeneratorMessenger::SetNewValue(G4UIcommand * command,
-                                               G4String newValue)
+						  G4String newValue)
 {
   if( command == fRndmCmd )
-   { fAction->SetRndmFlag(newValue);}
+    { fAction->SetRndmFlag(newValue);}
   if( command == fSetXVertexCmd )
-   { fAction->SetXVertex(fSetXVertexCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetXVertex(fSetXVertexCmd->GetNewDoubleValue(newValue));}
   if( command == fSetYVertexCmd )
-   { fAction->SetYVertex(fSetYVertexCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetYVertex(fSetYVertexCmd->GetNewDoubleValue(newValue));}
   if( command == fSetZVertexCmd )
-   { fAction->SetZVertex(fSetZVertexCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetZVertex(fSetZVertexCmd->GetNewDoubleValue(newValue));}
 
   if( command == fSetMomentumXVertexCmd )
-   { fAction->SetMomentumXVertex(fSetMomentumXVertexCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetMomentumXVertex(fSetMomentumXVertexCmd->GetNewDoubleValue(newValue));}
   if( command == fSetMomentumYVertexCmd )
-   { fAction->SetMomentumYVertex(fSetMomentumYVertexCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetMomentumYVertex(fSetMomentumYVertexCmd->GetNewDoubleValue(newValue));}
   if( command == fSetMomentumZVertexCmd )
-   { fAction->SetMomentumZVertex(fSetMomentumZVertexCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetMomentumZVertex(fSetMomentumZVertexCmd->GetNewDoubleValue(newValue));}
 
   if( command == fSetCalibEnergyCmd )
-   { fAction->SetCalibEnergy(fSetCalibEnergyCmd->GetNewDoubleValue(newValue));}
+    { fAction->SetCalibEnergy(fSetCalibEnergyCmd->GetNewDoubleValue(newValue));}
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

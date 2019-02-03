@@ -39,11 +39,11 @@ int main(int argc, char** argv) {
   boost::property_tree::ptree pt_geometry;
 
   // Read primary configuration file
-//  std::string configFile = (argc >= 3) ? argv[2] : "config/am241.ini";
+  //  std::string configFile = (argc >= 3) ? argv[2] : "config/am241.ini";
   std::string configFile = (argc >= 3) ? argv[2] : "config/onepc.ini";
-//  std::string configFile = (argc >= 3) ? argv[2] : "config/fortyninepc.ini";
-//  std::string configFile = (argc >= 3) ? argv[2] : "config/cosmicmuons.ini";
-//  std::string configFile = (argc >= 3) ? argv[2] : "config/default.ini";
+  //  std::string configFile = (argc >= 3) ? argv[2] : "config/fortyninepc.ini";
+  //  std::string configFile = (argc >= 3) ? argv[2] : "config/cosmicmuons.ini";
+  //  std::string configFile = (argc >= 3) ? argv[2] : "config/default.ini";
   try {
     boost::property_tree::ini_parser::read_ini(configFile, pt); // std::string, ptree
     boost::property_tree::ini_parser::read_ini(pt.get<std::string>("Configuration.GeometryConfigFile"), pt_geometry);

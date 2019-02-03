@@ -19,29 +19,29 @@ linux=false
 
 
 if [ $mac = true ]; then
-	sedcommand="sed -i ''"
+    sedcommand="sed -i ''"
 fi
 if [ $linux = true ]; then
-	sedcommand="sed -i"
+    sedcommand="sed -i"
 fi 
 
 
 #Pick correct distribution files
 if [ "$proc" = "mCP_UFO" ]; then
-	cnew="$(echo $charge | sed 's/0.//')"
-	if [ "$cnew" -lt "0100" ]; then
-	        sourcecharge=0.001
-	elif [ "$cnew" -lt "1000" ]; then
-	        sourcecharge=0.01
-	elif [ "$cnew" -ge "1000" ]; then
-	        sourcecharge=0.1
-	fi
+    cnew="$(echo $charge | sed 's/0.//')"
+    if [ "$cnew" -lt "0100" ]; then
+	sourcecharge=0.001
+    elif [ "$cnew" -lt "1000" ]; then
+	sourcecharge=0.01
+    elif [ "$cnew" -ge "1000" ]; then
+	sourcecharge=0.1
+    fi
 fi
 
 #Define names
 outputname="$proc"."$mass"GeV."$charge"Q."$configFile"Config
 if [ "$proc" = "mCP_UFO" ]; then
-	sourcename="$proc"/"$mass"/"$sourcecharge"/hit_4_vecs.txt
+    sourcename="$proc"/"$mass"/"$sourcecharge"/hit_4_vecs.txt
 fi
 JOB=$SCRATCH/Scratchy."$outputname"
 SRC=$JOB/geant4/src
@@ -61,15 +61,15 @@ $sedcommand 's/^ElectricCharge.*/ElectricCharge = '"$charge"'/g' $CONFIG/particl
 $sedcommand 's/^MonopoleMass.*/MonopoleMass = '"$mass"'/g' $CONFIG/particles.ini
 $sedcommand 's/^Particle.*/Particle = '"$particle"'/g' $CONFIG/particles.ini
 if [ "$proc" != "cosmicmuons" ] && [ "$proc" != "am241" ]; then
-	$sedcommand 's~FileName.*~FileName = '$sourcename'~g' $CONFIG/particles.ini
+    $sedcommand 's~FileName.*~FileName = '$sourcename'~g' $CONFIG/particles.ini
 fi
 $sedcommand 's~PathName.*~PathName = '$DATA'/~g' $CONFIG/particles.ini
 $sedcommand 's/.*beamOn.*/\/run\/beamOn '"$nEv"'/g' $CONFIG/mcp.mac
 
 
 if [[ $configFile == *"Am241"* ]]; then
-	$sedcommand 's/^FileName.*/FileName = '"$configFile"'.dat/g' $CONFIG/Am241/Am241particles.ini
-	configFile="am241"
+    $sedcommand 's/^FileName.*/FileName = '"$configFile"'.dat/g' $CONFIG/Am241/Am241particles.ini
+    configFile="am241"
 fi
 
 

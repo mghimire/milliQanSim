@@ -158,9 +158,9 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
       eventInformation->IncEDep(edep); // track the total energy deposition for entire event
       eWeightPos += (*scintHC)[i]->GetPos() * edep; // calculate energy-weighted position of hits
       if(edep > edepMax) {
-	      edepMax = edep;//store max energy deposit
-	      G4ThreeVector posMax = (*scintHC)[i]->GetPos();
-	      eventInformation->SetPosMax(posMax, edep); // track the position and energy of largest energy deposit
+	edepMax = edep;//store max energy deposit
+	G4ThreeVector posMax = (*scintHC)[i]->GetPos();
+	eventInformation->SetPosMax(posMax, edep); // track the position and energy of largest energy deposit
       }
     }
 
@@ -211,16 +211,16 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
     // For all hits in PMTs, record the time of hit in pmtTimes(PMT position, hit number)
     for(G4int j = 0; j < pmtAllHC->entries(); j++) {
       if((*pmtAllHC)[j]->GetPMTNumber() > -1) { // It was hit!
-	      PrintStats = true;
-	      pmtTime[(*pmtAllHC)[j]->GetPMTNumber()].push_back((*pmtAllHC)[j]->GetTime()) ;
+	PrintStats = true;
+	pmtTime[(*pmtAllHC)[j]->GetPMTNumber()].push_back((*pmtAllHC)[j]->GetTime()) ;
       }
     }
 
     // For all hits in scintillators, record the time and energy in scintTime/scintEnergy
     for(int i = 0;i < scintHC->entries(); i++) {
       if((*scintHC)[i]->GetCpNum() > -1) { // It was hit!
-	     scintTime[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetTime());
-	     scintEnergy[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetEdep());
+	scintTime[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetTime());
+	scintEnergy[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetEdep());
       }
     }
 
@@ -234,24 +234,24 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
   MilliQAnalysis* mcpan = new MilliQAnalysis(pmtTime, scintTime, scintEnergy,fPTree);
 
   if(mcpan->IsActive()){
-      // Output information to ROOT MilliQAll
-	  ActivePMT = mcpan->GetActivePMT();
-	  NumberPMTHits = mcpan->GetNumberPMTHits();
-	  PmtAllHitTimes = mcpan->GetPmtAllHitTimes();
-	  PmtMedianHitTimes = mcpan->GetPmtMedianHitTimes();
-	  TotalEnergyDeposit = mcpan->GetTotalEnergyDeposit();
-	  TimeOfFlight = mcpan->GetTimeOfFlight();
-	  analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 6, mcpan->GetFirstHitScintillator() );
-	  analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 7, eventInformation->GetPhotonCount_Scint() );
-	  analysisManager->AddNtupleRow(MilliQDataFormat::kAll);
+    // Output information to ROOT MilliQAll
+    ActivePMT = mcpan->GetActivePMT();
+    NumberPMTHits = mcpan->GetNumberPMTHits();
+    PmtAllHitTimes = mcpan->GetPmtAllHitTimes();
+    PmtMedianHitTimes = mcpan->GetPmtMedianHitTimes();
+    TotalEnergyDeposit = mcpan->GetTotalEnergyDeposit();
+    TimeOfFlight = mcpan->GetTimeOfFlight();
+    analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 6, mcpan->GetFirstHitScintillator() );
+    analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 7, eventInformation->GetPhotonCount_Scint() );
+    analysisManager->AddNtupleRow(MilliQDataFormat::kAll);
 
 
-      // Output information to ROOT MilliQCAEN
-	  WaveformVoltage = mcpan->GetWaveformVoltage();
-	  WaveformLengthPerChannel = mcpan->GetWaveformLengthPerChannel();
-	  analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 2, mcpan->GetFirstPMTTime());
-	  analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 3, mcpan->GetTimePerSample());
-	  analysisManager->AddNtupleRow(MilliQDataFormat::kCAEN);
+    // Output information to ROOT MilliQCAEN
+    WaveformVoltage = mcpan->GetWaveformVoltage();
+    WaveformLengthPerChannel = mcpan->GetWaveformLengthPerChannel();
+    analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 2, mcpan->GetFirstPMTTime());
+    analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 3, mcpan->GetTimePerSample());
+    analysisManager->AddNtupleRow(MilliQDataFormat::kCAEN);
 
 
 

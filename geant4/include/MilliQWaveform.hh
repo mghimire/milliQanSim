@@ -13,12 +13,12 @@
 
 class MilliQWaveform {
 public:
-	MilliQWaveform();
+  MilliQWaveform();
 
-	virtual ~MilliQWaveform();
+  virtual ~MilliQWaveform();
 
-	std::vector<G4float> GetSinglePhotoelectronWaveform();
-	G4float GetBackgroundWaveform();
+  std::vector<G4float> GetSinglePhotoelectronWaveform();
+  G4float GetBackgroundWaveform();
 
 
 private:

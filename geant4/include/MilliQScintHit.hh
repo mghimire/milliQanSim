@@ -42,52 +42,52 @@
 
 class MilliQScintHit : public G4VHit
 {
-  public:
+public:
  
-    MilliQScintHit();
-    MilliQScintHit(G4VPhysicalVolume* pVol);
-    virtual ~MilliQScintHit();
-    MilliQScintHit(const MilliQScintHit &right);
-    const MilliQScintHit& operator=(const MilliQScintHit &right);
-    G4int operator==(const MilliQScintHit &right) const;
+  MilliQScintHit();
+  MilliQScintHit(G4VPhysicalVolume* pVol);
+  virtual ~MilliQScintHit();
+  MilliQScintHit(const MilliQScintHit &right);
+  const MilliQScintHit& operator=(const MilliQScintHit &right);
+  G4int operator==(const MilliQScintHit &right) const;
 
-    inline void *operator new(size_t);
-    inline void operator delete(void *aHit);
+  inline void *operator new(size_t);
+  inline void operator delete(void *aHit);
  
-    virtual void Draw();
-    virtual void Print();
+  virtual void Draw();
+  virtual void Print();
 
-    inline void SetEdep(G4double de) { fEdep = de; }
-    inline void AddEdep(G4double de) { fEdep += de; }
-    inline G4double GetEdep() { return fEdep; }
+  inline void SetEdep(G4double de) { fEdep = de; }
+  inline void AddEdep(G4double de) { fEdep += de; }
+  inline G4double GetEdep() { return fEdep; }
 
-    inline void SetEdelta(G4double de) { fEdelta = de; }
-    inline void AddEdelta(G4double de) { fEdelta += de; }
-    inline G4double GetEdelta() { return fEdelta; }
+  inline void SetEdelta(G4double de) { fEdelta = de; }
+  inline void AddEdelta(G4double de) { fEdelta += de; }
+  inline G4double GetEdelta() { return fEdelta; }
 
-    inline void SetEdepion(G4double de) { fEdepion = de; }
-    inline void AddEdepion(G4double de) { fEdepion += de; }
-    inline G4double GetEdepion() { return fEdepion; }
+  inline void SetEdepion(G4double de) { fEdepion = de; }
+  inline void AddEdepion(G4double de) { fEdepion += de; }
+  inline G4double GetEdepion() { return fEdepion; }
 
-    void SetTime(G4double t) { fTime = t; }
-    G4double GetTime() const { return fTime; }
+  void SetTime(G4double t) { fTime = t; }
+  G4double GetTime() const { return fTime; }
 
-    void SetCpNum(G4int tn) { fCpNum = tn; }
-    G4double GetCpNum() const { return fCpNum; }
+  void SetCpNum(G4int tn) { fCpNum = tn; }
+  G4double GetCpNum() const { return fCpNum; }
 
-    inline void SetPos(G4ThreeVector xyz) { fPos = xyz; }
-    inline G4ThreeVector GetPos() { return fPos; }
+  inline void SetPos(G4ThreeVector xyz) { fPos = xyz; }
+  inline G4ThreeVector GetPos() { return fPos; }
 
-    inline const G4VPhysicalVolume * GetPhysV() { return fPhysVol; }
+  inline const G4VPhysicalVolume * GetPhysV() { return fPhysVol; }
 
-  private:
-    G4double fEdep;
-    G4double fEdelta;
-    G4double fEdepion;
-    G4ThreeVector fPos;
-    G4double fTime;
-    G4int fCpNum;
-    const G4VPhysicalVolume* fPhysVol;
+private:
+  G4double fEdep;
+  G4double fEdelta;
+  G4double fEdepion;
+  G4ThreeVector fPos;
+  G4double fTime;
+  G4int fCpNum;
+  const G4VPhysicalVolume* fPhysVol;
 
 };
 
@@ -98,7 +98,7 @@ extern G4ThreadLocal G4Allocator<MilliQScintHit>* MilliQScintHitAllocator;
 inline void* MilliQScintHit::operator new(size_t)
 {
   if(!MilliQScintHitAllocator)
-      MilliQScintHitAllocator = new G4Allocator<MilliQScintHit>;
+    MilliQScintHitAllocator = new G4Allocator<MilliQScintHit>;
   return (void *) MilliQScintHitAllocator->MallocSingle();
 }
 

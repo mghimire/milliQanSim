@@ -32,7 +32,7 @@
 #define MilliQActionInitialization_h 1
 
 #include "G4VUserActionInitialization.hh"
- #include "G4Types.hh"
+#include "G4Types.hh"
 
 #include <boost/property_tree/ptree.hpp>
 

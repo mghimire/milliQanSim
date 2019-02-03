@@ -74,20 +74,20 @@
 
 class MilliQRecorderBase {
 
-  public:
+public:
 
-    virtual ~MilliQRecorderBase() {};
+  virtual ~MilliQRecorderBase() {};
 
-    // The following a list of methods that correspond to the available
-    // user action classes in Geant 4.0.1.   In this base class, the
-    // methods are defined to do nothing.
+  // The following a list of methods that correspond to the available
+  // user action classes in Geant 4.0.1.   In this base class, the
+  // methods are defined to do nothing.
 
-    virtual void RecordBeginOfRun(const G4Run*) = 0;
-    virtual void RecordEndOfRun(const G4Run*) = 0;
-    virtual void RecordBeginOfEvent(const G4Event*) {};
-    virtual void RecordEndOfEvent(const G4Event*) {};
-    virtual void RecordTrack(const G4Track*) {};
-    virtual void RecordStep(const G4Step*) {};
+  virtual void RecordBeginOfRun(const G4Run*) = 0;
+  virtual void RecordEndOfRun(const G4Run*) = 0;
+  virtual void RecordBeginOfEvent(const G4Event*) {};
+  virtual void RecordEndOfEvent(const G4Event*) {};
+  virtual void RecordTrack(const G4Track*) {};
+  virtual void RecordStep(const G4Step*) {};
 
 };
 

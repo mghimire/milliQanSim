@@ -36,13 +36,13 @@
 
 class MilliQSteppingVerbose : public G4SteppingVerbose
 {
-  public:
+public:
 
-    MilliQSteppingVerbose();
-    virtual ~MilliQSteppingVerbose();
+  MilliQSteppingVerbose();
+  virtual ~MilliQSteppingVerbose();
 
-    virtual void StepInfo();
-    virtual void TrackingStarted();
+  virtual void StepInfo();
+  virtual void TrackingStarted();
 
 };
 

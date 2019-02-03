@@ -139,7 +139,7 @@ private:
   G4int fAlternate;
   static G4ThreadLocal G4GlobalMagFieldMessenger*  fMagFieldMessenger;
 
-//  G4UniformMagField* fMagField;
+  //  G4UniformMagField* fMagField;
   MilliQDetectorStack* fDetectorStack;
   MilliQMonopoleFieldSetup* fMonFieldSetup;
 

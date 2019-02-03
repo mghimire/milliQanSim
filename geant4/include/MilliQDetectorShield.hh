@@ -13,27 +13,27 @@
 
 class MilliQDetectorShield
 {
-  public:
+public:
 
-    MilliQDetectorShield(G4LogicalVolume*,
-   		 G4double dTotalStackStart, G4double dTotalStackEnd,
-		 G4ThreeVector InnerShieldThickness, G4ThreeVector OutterShieldThickness,
-		 G4ThreeVector ShieldDimensions, G4double ScintHouseThick,
-		 G4Material* InnerShieldMaterial, G4Material* OutterShieldMaterial);
+  MilliQDetectorShield(G4LogicalVolume*,
+		       G4double dTotalStackStart, G4double dTotalStackEnd,
+		       G4ThreeVector InnerShieldThickness, G4ThreeVector OutterShieldThickness,
+		       G4ThreeVector ShieldDimensions, G4double ScintHouseThick,
+		       G4Material* InnerShieldMaterial, G4Material* OutterShieldMaterial);
 
-    G4LogicalVolume* ConstructShield();
+  G4LogicalVolume* ConstructShield();
 
-  private:
-    G4ThreeVector fInnerShieldThickness;
-    G4ThreeVector fOutterShieldThickness;
-    G4ThreeVector fDetectorInnerShieldGap;
-	G4LogicalVolume* fmotherLV;
-	G4double fTotalStackStart;
-	G4double fTotalStackEnd;
-	G4ThreeVector shield1InnerHL;
-    G4double fScintHouseThick;
-    G4Material* fInnerShieldMaterial;
-    G4Material* fOutterShieldMaterial;
+private:
+  G4ThreeVector fInnerShieldThickness;
+  G4ThreeVector fOutterShieldThickness;
+  G4ThreeVector fDetectorInnerShieldGap;
+  G4LogicalVolume* fmotherLV;
+  G4double fTotalStackStart;
+  G4double fTotalStackEnd;
+  G4ThreeVector shield1InnerHL;
+  G4double fScintHouseThick;
+  G4Material* fInnerShieldMaterial;
+  G4Material* fOutterShieldMaterial;
 
 
 

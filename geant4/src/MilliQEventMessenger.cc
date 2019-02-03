@@ -38,11 +38,11 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQEventMessenger::MilliQEventMessenger(MilliQEventAction* event)
- : fMilliQEvent(event)
+  : fMilliQEvent(event)
 {
   fSaveThresholdCmd = new G4UIcmdWithAnInteger("/MilliQ/saveThreshold",this);
   fSaveThresholdCmd->
-SetGuidance("Set the photon count threshold for saving the random number seed");
+    SetGuidance("Set the photon count threshold for saving the random number seed");
   fSaveThresholdCmd->SetParameterName("photons",true);
   fSaveThresholdCmd->SetDefaultValue(4500);
   fSaveThresholdCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
@@ -90,11 +90,11 @@ void MilliQEventMessenger::SetNewValue(G4UIcommand* command, G4String newValue){
   }
   else if(command == fForceDrawPhotonsCmd){
     fMilliQEvent->SetForceDrawPhotons(fForceDrawPhotonsCmd
-                                  ->GetNewBoolValue(newValue));
+				      ->GetNewBoolValue(newValue));
   }
   else if(command == fForceDrawNoPhotonsCmd){
     fMilliQEvent->SetForceDrawNoPhotons(fForceDrawNoPhotonsCmd
-                                  ->GetNewBoolValue(newValue));
+					->GetNewBoolValue(newValue));
     G4cout<<"TEST"<<G4endl;
   }
 }

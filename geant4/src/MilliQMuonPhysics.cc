@@ -39,7 +39,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQMuonPhysics::MilliQMuonPhysics(const G4String& name)
-                   :  G4VPhysicsConstructor(name) {
+  :  G4VPhysicsConstructor(name) {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -69,11 +69,11 @@ void MilliQMuonPhysics::ConstructParticle()
   G4NeutrinoMu::NeutrinoMuDefinition();
   G4AntiNeutrinoMu::AntiNeutrinoMuDefinition();
   //These are needed for the mu- capture
-    G4Neutron::Neutron();
-    G4Proton::Proton();
-    G4PionMinus::PionMinus();
-    G4PionZero::PionZero();
-    G4PionPlus::PionPlus();
+  G4Neutron::Neutron();
+  G4Proton::Proton();
+  G4PionMinus::PionMinus();
+  G4PionZero::PionZero();
+  G4PionPlus::PionPlus();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

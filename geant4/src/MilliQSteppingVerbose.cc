@@ -46,7 +46,7 @@ MilliQSteppingVerbose::~MilliQSteppingVerbose() {}
 
 void MilliQSteppingVerbose::StepInfo()
 {
-CopyState();
+  CopyState();
  
   G4int prec = G4cout.precision(3);
 
@@ -67,14 +67,14 @@ CopyState();
     }
 
     G4cout << std::setw(5) << fTrack->GetCurrentStepNumber() << " "
-        << std::setw(6) << G4BestUnit(fTrack->GetPosition().x(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetPosition().y(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetPosition().z(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetKineticEnergy(),"Energy")
-        << std::setw(6) << G4BestUnit(fStep->GetTotalEnergyDeposit(),"Energy")
-        << std::setw(6) << G4BestUnit(fStep->GetStepLength(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetTrackLength(),"Length")
-        << "  ";
+	   << std::setw(6) << G4BestUnit(fTrack->GetPosition().x(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetPosition().y(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetPosition().z(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetKineticEnergy(),"Energy")
+	   << std::setw(6) << G4BestUnit(fStep->GetTotalEnergyDeposit(),"Energy")
+	   << std::setw(6) << G4BestUnit(fStep->GetStepLength(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetTrackLength(),"Length")
+	   << "  ";
 
     // if( fStepStatus != fWorldBoundary){
     if( fTrack->GetNextVolume() != 0 ) {
@@ -85,8 +85,8 @@ CopyState();
 
     if(fStep->GetPostStepPoint()->GetProcessDefinedStep() != NULL){
       G4cout << "  "
-        << std::setw(10) << fStep->GetPostStepPoint()->GetProcessDefinedStep()
-                                        ->GetProcessName();
+	     << std::setw(10) << fStep->GetPostStepPoint()->GetProcessDefinedStep()
+	->GetProcessName();
     } else {
       G4cout << "   UserLimit";
     }
@@ -95,8 +95,8 @@ CopyState();
 
     if( verboseLevel == 2 ){
       G4int tN2ndariesTot = fN2ndariesAtRestDoIt +
-                            fN2ndariesAlongStepDoIt +
-                            fN2ndariesPostStepDoIt;
+	fN2ndariesAlongStepDoIt +
+	fN2ndariesPostStepDoIt;
       if(tN2ndariesTot>0){
         G4cout << "    :----- List of 2ndaries - "
                << "#SpawnInStep=" << std::setw(3) << tN2ndariesTot
@@ -109,7 +109,7 @@ CopyState();
                << G4endl;
 
         for(size_t lp1=(*fSecondary).size()-tN2ndariesTot;
-                        lp1<(*fSecondary).size(); lp1++){
+	    lp1<(*fSecondary).size(); lp1++){
           G4cout << "    : "
                  << std::setw(6)
                  << G4BestUnit((*fSecondary)[lp1]->GetPosition().x(),"Length")
@@ -154,14 +154,14 @@ void MilliQSteppingVerbose::TrackingStarted()
            << std::setw(10) << "Process"    << G4endl;
 
     G4cout << std::setw(5) << fTrack->GetCurrentStepNumber() << " "
-        << std::setw(6) << G4BestUnit(fTrack->GetPosition().x(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetPosition().y(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetPosition().z(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetKineticEnergy(),"Energy")
-        << std::setw(6) << G4BestUnit(fStep->GetTotalEnergyDeposit(),"Energy")
-        << std::setw(6) << G4BestUnit(fStep->GetStepLength(),"Length")
-        << std::setw(6) << G4BestUnit(fTrack->GetTrackLength(),"Length")
-        << "  ";
+	   << std::setw(6) << G4BestUnit(fTrack->GetPosition().x(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetPosition().y(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetPosition().z(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetKineticEnergy(),"Energy")
+	   << std::setw(6) << G4BestUnit(fStep->GetTotalEnergyDeposit(),"Energy")
+	   << std::setw(6) << G4BestUnit(fStep->GetStepLength(),"Length")
+	   << std::setw(6) << G4BestUnit(fTrack->GetTrackLength(),"Length")
+	   << "  ";
 
     if(fTrack->GetNextVolume()){
       G4cout << std::setw(10) << fTrack->GetVolume()->GetName();

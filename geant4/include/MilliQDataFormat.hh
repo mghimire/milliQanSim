@@ -24,7 +24,7 @@ template<typename T> std::vector<T> ptree_array(const boost::property_tree::ptre
 }
 
 class MilliQDataFormat {
- public:
+public:
 
   MilliQDataFormat();
   virtual ~MilliQDataFormat();
@@ -40,7 +40,7 @@ class MilliQDataFormat {
   inline void SetVerboseLevel(G4int v) { fVerboseLevel = v; }
   inline G4int GetVerboseLevel()       { return fVerboseLevel; }
 
- private:
+private:
 
   virtual void CreateAnalysisManager();
   virtual void CreateHistograms();

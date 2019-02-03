@@ -56,9 +56,9 @@
 
 MilliQSteppingAction::MilliQSteppingAction(MilliQRecorderBase* r, const G4int geometryVersion) : fRecorder(r), fOneStepPrimaries(false), fAlternate(geometryVersion) {
 
-	assert(fAlternate >=-10000);
+  assert(fAlternate >=-10000);
 
-	fSteppingMessenger = new MilliQSteppingMessenger(this);
+  fSteppingMessenger = new MilliQSteppingMessenger(this);
 
   fExpectedNextStatus = Undefined;
 }

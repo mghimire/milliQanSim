@@ -91,9 +91,9 @@ void MilliQRunAction::EndOfRunAction(const G4Run* aRun) {
   }
 
   if(fVerboseLevel){
-	  G4cout << ekin[0] << G4endl;
-	  for(i = 0; i < 100; i++) G4cout << " E(MeV)= " << ekin[i] << " dedx= " << dedx[i] << G4endl;
-	  G4cout << "### End of dEdX table" << G4endl;
+    G4cout << ekin[0] << G4endl;
+    for(i = 0; i < 100; i++) G4cout << " E(MeV)= " << ekin[i] << " dedx= " << dedx[i] << G4endl;
+    G4cout << "### End of dEdX table" << G4endl;
   }
 
   for(i = 0; i < 100; ++i) {

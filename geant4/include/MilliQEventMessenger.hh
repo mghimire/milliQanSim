@@ -41,21 +41,21 @@ class G4UIcmdWithABool;
 
 class MilliQEventMessenger: public G4UImessenger
 {
-  public:
+public:
 
-    MilliQEventMessenger(MilliQEventAction*);
-    virtual ~MilliQEventMessenger();
+  MilliQEventMessenger(MilliQEventAction*);
+  virtual ~MilliQEventMessenger();
  
-    virtual void SetNewValue(G4UIcommand*, G4String);
+  virtual void SetNewValue(G4UIcommand*, G4String);
  
-  private:
+private:
 
-    MilliQEventAction*        fMilliQEvent;
-    G4UIcmdWithAnInteger*  fSaveThresholdCmd;
-    G4UIcmdWithAnInteger*  fVerboseCmd;
-    G4UIcmdWithAnInteger*  fPmtThresholdCmd;
-    G4UIcmdWithABool*      fForceDrawPhotonsCmd;
-    G4UIcmdWithABool*      fForceDrawNoPhotonsCmd;
+  MilliQEventAction*        fMilliQEvent;
+  G4UIcmdWithAnInteger*  fSaveThresholdCmd;
+  G4UIcmdWithAnInteger*  fVerboseCmd;
+  G4UIcmdWithAnInteger*  fPmtThresholdCmd;
+  G4UIcmdWithABool*      fForceDrawPhotonsCmd;
+  G4UIcmdWithABool*      fForceDrawNoPhotonsCmd;
 };
 
 #endif

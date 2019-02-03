@@ -46,23 +46,23 @@ class G4UIcmdWithADouble;
 
 class MilliQDetectorMessenger: public G4UImessenger
 {
-  public:
+public:
 
-    MilliQDetectorMessenger(MilliQDetectorConstruction*);
-    virtual ~MilliQDetectorMessenger();
+  MilliQDetectorMessenger(MilliQDetectorConstruction*);
+  virtual ~MilliQDetectorMessenger();
  
-    virtual void SetNewValue(G4UIcommand*, G4String);
+  virtual void SetNewValue(G4UIcommand*, G4String);
  
-  private:
+private:
 
-    MilliQDetectorConstruction*     fMilliQDetector;
-    G4UIdirectory*               fDetectorDir;
-    G4UIdirectory*               fVolumesDir;
-    G4UIcmdWithABool*            fMilliQCmd;
-    G4UIcommand*                 fDefaultsCmd;
-    G4UIcmdWithADouble*          fMainScintYield;
-//    G4UIcmdWithADoubleAndUnit* fStepSizeCmd;
-//    G4UIcmdWithADoubleAndUnit* fMagFieldCmd;
+  MilliQDetectorConstruction*     fMilliQDetector;
+  G4UIdirectory*               fDetectorDir;
+  G4UIdirectory*               fVolumesDir;
+  G4UIcmdWithABool*            fMilliQCmd;
+  G4UIcommand*                 fDefaultsCmd;
+  G4UIcmdWithADouble*          fMainScintYield;
+  //    G4UIcmdWithADoubleAndUnit* fStepSizeCmd;
+  //    G4UIcmdWithADoubleAndUnit* fMagFieldCmd;
 };
 
 #endif

@@ -63,7 +63,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQMonopoleEquation::MilliQMonopoleEquation(G4ElectroMagneticField *emField )
-      : G4EquationOfMotion( emField ) 
+  : G4EquationOfMotion( emField ) 
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -75,11 +75,11 @@ MilliQMonopoleEquation::~MilliQMonopoleEquation()
 
 void  
 MilliQMonopoleEquation::SetChargeMomentumMass( G4ChargeState particleChargeState,
-                                           G4double      ,           // momentum, 
-                                           G4double particleMass)
+					       G4double      ,           // momentum, 
+					       G4double particleMass)
 {
-   G4double particleMagneticCharge= particleChargeState.MagneticCharge(); 
-   G4double particleElectricCharge= particleChargeState.GetCharge(); 
+  G4double particleMagneticCharge= particleChargeState.MagneticCharge(); 
+  G4double particleElectricCharge= particleChargeState.GetCharge(); 
 
   //   fElCharge = particleElectricCharge;
   fElCharge =eplus* particleElectricCharge*c_light;
@@ -97,8 +97,8 @@ MilliQMonopoleEquation::SetChargeMomentumMass( G4ChargeState particleChargeState
 
 void
 MilliQMonopoleEquation::EvaluateRhsGivenB(const G4double y[],
-                                      const G4double Field[],
-                                      G4double dydx[] ) const
+					  const G4double Field[],
+					  G4double dydx[] ) const
 {
   // Components of y:
   //    0-2 dr/ds, 
@@ -146,7 +146,7 @@ MilliQMonopoleEquation::EvaluateRhsGivenB(const G4double y[],
   //               << G4endl;
 
   dydx[6] = 0.;//not used
-//   G4cout<<"It got here in equations"<<G4endl;
+  //   G4cout<<"It got here in equations"<<G4endl;
   // Lab Time of flight
   dydx[7] = inverse_velocity;
   return;

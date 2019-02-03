@@ -12,30 +12,30 @@ class MilliQDetectorStackParameterisation : public G4VPVParameterisation
 {
 public:
     
-    MilliQDetectorStackParameterisation(G4int  pN,
-                                        G4ThreeVector  pStackDimensions,
-                                        G4ThreeVector  pDistributionUnitVector,
-										G4ThreeVector  pOffset,
-                                        G4double       pStartDepth,
-                                        G4double       pEndDepth);
+  MilliQDetectorStackParameterisation(G4int  pN,
+				      G4ThreeVector  pStackDimensions,
+				      G4ThreeVector  pDistributionUnitVector,
+				      G4ThreeVector  pOffset,
+				      G4double       pStartDepth,
+				      G4double       pEndDepth);
     
-    virtual ~MilliQDetectorStackParameterisation();
+  virtual ~MilliQDetectorStackParameterisation();
     
     
-    virtual void ComputeTransformation(const G4int pId,
-                                       G4VPhysicalVolume* pPV) const;
+  virtual void ComputeTransformation(const G4int pId,
+				     G4VPhysicalVolume* pPV) const;
 
     
-    G4int GetNumberOfBlocks(){return fN;}
-    G4ThreeVector GetStackDimensions();
+  G4int GetNumberOfBlocks(){return fN;}
+  G4ThreeVector GetStackDimensions();
     
 private:
     
-    G4double    fStartCenterDepth;
-    G4double    fDepthGap;
+  G4double    fStartCenterDepth;
+  G4double    fDepthGap;
     
-    G4int fN;
-    G4ThreeVector fStackDimensions;
-    G4ThreeVector fDistributionUnitVector;
-    G4ThreeVector fOffset;
+  G4int fN;
+  G4ThreeVector fStackDimensions;
+  G4ThreeVector fDistributionUnitVector;
+  G4ThreeVector fOffset;
 };

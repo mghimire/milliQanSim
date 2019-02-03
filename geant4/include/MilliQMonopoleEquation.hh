@@ -65,8 +65,8 @@ public:  // with description
   // magnetic charge in e+ units
                                  
   virtual void EvaluateRhsGivenB(const G4double y[],
-                         const G4double Field[],
-                         G4double dydx[] ) const;
+				 const G4double Field[],
+				 G4double dydx[] ) const;
   // Given the value of the electromagnetic field, this function 
   // calculates the value of the derivative dydx.
 
