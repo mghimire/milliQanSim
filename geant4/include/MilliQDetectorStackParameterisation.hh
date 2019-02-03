@@ -26,7 +26,7 @@ public:
 				     G4VPhysicalVolume* pPV) const;
 
     
-  G4int GetNumberOfBlocks(){return fN;}
+  G4int GetNumberOfBlocks() {return fN;}
   G4ThreeVector GetStackDimensions();
     
 private:

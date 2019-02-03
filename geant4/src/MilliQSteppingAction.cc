@@ -97,7 +97,7 @@ void MilliQSteppingAction::UserSteppingAction(const G4Step * theStep) {
     }
   }
 
-  if(false){
+  if(false) {
     G4ProcessManager* pm = theStep->GetTrack()->GetDefinition()->GetProcessManager();
     G4int nprocesses = pm->GetProcessListLength();
     G4ProcessVector* pv = pm->GetProcessList();
@@ -143,7 +143,7 @@ void MilliQSteppingAction::UserSteppingAction(const G4Step * theStep) {
     }
   }
 
-  if(!thePostPV){//out of world (works well)
+  if(!thePostPV) {//out of world (works well)
     fExpectedNextStatus = Undefined;
     return;
   }

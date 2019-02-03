@@ -68,10 +68,10 @@ MilliQDetectorMessenger::~MilliQDetectorMessenger()
 
 void MilliQDetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
 {
-  if (command == fDefaultsCmd){
+  if (command == fDefaultsCmd) {
     fMilliQDetector->SetDefaults();
   }
-  else if (command == fMainScintYield){
+  else if (command == fMainScintYield) {
     fMilliQDetector->SetMainScintYield(fMainScintYield->GetNewDoubleValue(newValue));
   }
 }

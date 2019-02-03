@@ -56,9 +56,6 @@ int EventRangeEnd=1200000000; // Set to 1200000000 for all events
 //int EventRangeBegin=15; 
 //int EventRangeEnd=19; 
 
-
-
-
 // Settings related to the G4 simulation that has been performed
 // And the details of the analysis
 // All these are set based on the .ini file
@@ -74,11 +71,8 @@ float ATWDwindow;
 float TimeOffsetBtwCoincidences;
 string OfflineTriggerStrategy;
 
-
-
 // Reads in vectors of arbitrary type from a .ini file
 template<typename T> std::vector<T> ptree_array(const boost::property_tree::ptree pt, const std::string sEntry) {
-
   const std::string sConfig = pt.get<std::string>(sEntry);
 
   std::vector<T> v;
@@ -92,54 +86,48 @@ template<typename T> std::vector<T> ptree_array(const boost::property_tree::ptre
 
 
 // Converts Channel Number to a set of x, y, z coordinates
-vector<int> ChannelsToCoordinates( int channel){
+vector<int> ChannelsToCoordinates( int channel) {
+    // In the simulation, the coordinates are defined as follows:
+    // Suppose we have a 1x2x3 (x,y,z) layer, the numbering goes as:
+    // 	+y
+    // 	^
+    // 	| 3 4 5
+    //	| 0 1 2
+    // 	------> +z
+    //     /
+    //    /
+    //  \/
+    // -x
+    // The rest of the detector goes in the +x direction
+
+    // This function maintains the same convention 
 
 
-	// In the simulation, the coordinates are defined as follows:
-	// Suppose we have a 1x2x3 (x,y,z) layer, the numbering goes as:
-	// 	+y
-	// 	^
-	// 	| 3 4 5
-	//	| 0 1 2
-	// 	------> +z
-	//     /
-	//    /
-	//  \/
-	// -x
-	// The rest of the detector goes in the +x direction
+    vector<int> xyzCoordinate(3);
 
- 	// This function maintains the same convention 
+    // Figures which stack it's in
+    xyzCoordinate[0] = channel / NBlocksPerStack;
+    // Figures which row (along y) it is
+    xyzCoordinate[1] = (channel - NBlocksPerStack*xyzCoordinate[0])/NBlocks[2];
+    // Figures which column (along z in picture above) it is
+    xyzCoordinate[2] = (channel - NBlocksPerStack*xyzCoordinate[0]-NBlocks[2]*xyzCoordinate[1]);
 
 
-	vector<int> xyzCoordinate(3);
+    if(false) { 
+    	cout << " channel:" << channel;
+    	cout << " x:" << xyzCoordinate[0] ;
+            cout << " y:" << xyzCoordinate[1] ;
+            cout << " z:" << xyzCoordinate[2] ;
+    	cout << " " << endl ;
+    }
 
-	// Figures which stack it's in
-	xyzCoordinate[0] = channel / NBlocksPerStack;
-	// Figures which row (along y) it is
-	xyzCoordinate[1] = (channel - NBlocksPerStack*xyzCoordinate[0])/NBlocks[2];
-	// Figures which column (along z in picture above) it is
-	xyzCoordinate[2] = (channel - NBlocksPerStack*xyzCoordinate[0]-NBlocks[2]*xyzCoordinate[1]);
-
-
-	if(false){ 
-		cout << " channel:" << channel;
-		cout << " x:" << xyzCoordinate[0] ;
-	        cout << " y:" << xyzCoordinate[1] ;
-	        cout << " z:" << xyzCoordinate[2] ;
-		cout << " " << endl ;
-	}
-
-	return xyzCoordinate;
-
+    return xyzCoordinate;
 }
-
-
 
 // This Function is used to write a vector per event, where the vector is of length total # channels, to a Mathematica friendly format
 // ActivePMT contains the channel numbers that are active
 // Would be nice if it would plot directly to ROOT TCanvas!
-template<typename T> void WriteVectorChannelsToFile( TTree *t1, vector<int> *ActivePMT, vector<T> *v, string name){
-	
+template<typename T> void WriteVectorChannelsToFile( TTree *t1, vector<int> *ActivePMT, vector<T> *v, string name) {
 	int n = t1->GetEntries();
 	if(n > EventRangeEnd)
 		n = EventRangeEnd;
@@ -156,12 +144,12 @@ template<typename T> void WriteVectorChannelsToFile( TTree *t1, vector<int> *Act
 	output << "{";
 
 	// Loop over events
-	for(int i = EventRangeBegin; i < n; i++){
+	for(int i = EventRangeBegin; i < n; i++) {
 		output << "{" ;
 		t1->GetEntry(i);
 
 		// Loop over channels that have seen activity
-        	for (unsigned long j=0; j<ActivePMT->size() ; j++){
+        	for (unsigned long j=0; j<ActivePMT->size() ; j++) {
 			// Get that channel ID (position in the *v vector)
         		idPMT = ActivePMT->at(j);
 			dat = v->at(idPMT);
@@ -177,7 +165,7 @@ template<typename T> void WriteVectorChannelsToFile( TTree *t1, vector<int> *Act
 
 
 // Used to write a variable per event to Mathematica friendly format
-template<typename T> void WriteVarToFile( TTree *t1, T *v, string name){
+template<typename T> void WriteVarToFile( TTree *t1, T *v, string name) {
 
 	int n = t1->GetEntries();
 	if(n > EventRangeEnd)
@@ -189,7 +177,7 @@ template<typename T> void WriteVarToFile( TTree *t1, T *v, string name){
 
 	output << "{";
 	// Loop over events
-	for(int i = EventRangeBegin; i < n; i++){
+	for(int i = EventRangeBegin; i < n; i++) {
 		t1->GetEntry(i);
         	output << boost::lexical_cast<T>(*v);
 		if(i < n-1) output << ",";
@@ -206,7 +194,7 @@ template<typename T> void WriteVarToFile( TTree *t1, T *v, string name){
 // The length of Translations is total # of channels
 // The first Translattion->at(0) elements of *v correspond to channel 0,
 // The next Translation->at(1) elements of *v correspond to channel 1, etc.
-template<typename T> void WriteVectorToFile( TTree *t1, vector<int> *Translation, vector<T> *v, string name){
+template<typename T> void WriteVectorToFile( TTree *t1, vector<int> *Translation, vector<T> *v, string name) {
 	
 	// Because of the nature of PmtAllHitTimes, we need to deal with it differently
 	int n = t1->GetEntries();
@@ -222,13 +210,13 @@ template<typename T> void WriteVectorToFile( TTree *t1, vector<int> *Translation
 
 	output << "{";
 	// Loop over number of events
-	for(int i = EventRangeBegin; i < n; i++){
+	for(int i = EventRangeBegin; i < n; i++) {
 		output << "{" ;
 		t1->GetEntry(i);
 		counter=0;
 
 		// Loop over channels that have been hit
-        	for (unsigned long j=0; j<Translation->size() ; j++){
+        	for (unsigned long j=0; j<Translation->size() ; j++) {
 			nHits = Translation->at(j);
 			if(nHits == 0)
 				continue;
@@ -258,10 +246,10 @@ template<typename T> void WriteVectorToFile( TTree *t1, vector<int> *Translation
 // This function is called for each channel, and is fed the background subtracted Waveform 
 // All Waveforms for each channel are assumed to have the same number of sample counts, and the first and last samples correspond
 // to the same start and end global times across all channels
-void FindPeaks(vector<float> &Waveform, vector<float> &Peaks){
+void FindPeaks(vector<float> &Waveform, vector<float> &Peaks) {
 
 	int ChannelSize = Waveform.size();
-	if(ChannelSize > 0){
+	if(ChannelSize > 0) {
 		TH1F *h = new TH1F("", "h", ChannelSize, 0, ChannelSize);
 		for(int i = 0; i < ChannelSize; i++)
 			h->Fill(i, Waveform[i]);
@@ -304,7 +292,7 @@ void FindPeaks(vector<float> &Waveform, vector<float> &Peaks){
 // The way this is coded is DEFINITELY not the best way to do this, but it works
 // Should probably do this part via recursion
 // This function is hard coded for 3 layers in the interest of having results by the 2016 NY Meeting
-void GetNextCandidate(bool &TestNextCandidate, vector<int> &CandidateChannels, int ActiveChannel, int &CandidateCounter){
+void GetNextCandidate(bool &TestNextCandidate, vector<int> &CandidateChannels, int ActiveChannel, int &CandidateCounter) {
 
 	// This function will run through all possible candidates of channels that could constitute a signal, and output them to CandidateChannels
 	// It starts suggesting configurations based on the initial ActiveChannel hit in the first layer
@@ -315,14 +303,14 @@ void GetNextCandidate(bool &TestNextCandidate, vector<int> &CandidateChannels, i
 	vector<int> NN, NN2z, NN2y;
 	int MaxAttempts;
 
-	if(OfflineTriggerStrategy == "AllNeighbours" || OfflineTriggerStrategy == "ThreeFoldAnywhere" || OfflineTriggerStrategy == "ParticleTrajectory"){
+	if(OfflineTriggerStrategy == "AllNeighbours" || OfflineTriggerStrategy == "ThreeFoldAnywhere" || OfflineTriggerStrategy == "ParticleTrajectory") {
 		NN.push_back(0);
 		NN.push_back(-1);
 		NN.push_back(1);
 		MaxAttempts = (int)std::pow(9,NStacks-1);
 	}
 
-	if(OfflineTriggerStrategy == "BackToBack"){
+	if(OfflineTriggerStrategy == "BackToBack") {
 		NN.push_back(0);
 		NN.push_back(0);
 		NN.push_back(0);
@@ -338,21 +326,21 @@ void GetNextCandidate(bool &TestNextCandidate, vector<int> &CandidateChannels, i
 	CandidateChannels.clear();
 	CandidateChannels.push_back(ActiveChannel);
 
-	if(CandidateCounter >= MaxAttempts){
+	if(CandidateCounter >= MaxAttempts) {
 		TestNextCandidate = false;
 	}
 
 
 	// Loop over grid in second layer
-	if(TestNextCandidate){
-	for(std::vector<int>::iterator z1 = NN.begin() ; z1 != NN.end(); ++z1){
-	for(std::vector<int>::iterator y1 = NN.begin() ; y1 != NN.end(); ++y1){
+	if(TestNextCandidate) {
+	for(std::vector<int>::iterator z1 = NN.begin() ; z1 != NN.end(); ++z1) {
+	for(std::vector<int>::iterator y1 = NN.begin() ; y1 != NN.end(); ++y1) {
 
 		NN2z.clear();
 		NN2y.clear();
 
 		// Straight Line, or almost straight line configuration
-		if (OfflineTriggerStrategy == "ParticleTrajectory" || OfflineTriggerStrategy == "BackToBack"){
+		if (OfflineTriggerStrategy == "ParticleTrajectory" || OfflineTriggerStrategy == "BackToBack") {
 			NN2z.push_back(0);
 			NN2z.push_back(*z1);
 			NN2y.push_back(0);
@@ -360,19 +348,19 @@ void GetNextCandidate(bool &TestNextCandidate, vector<int> &CandidateChannels, i
 		}
 
 		// Neighbour configuration, or hits anywhere
-		if( OfflineTriggerStrategy == "AllNeighbours" || OfflineTriggerStrategy == "ThreeFoldAnywhere"  ){
-			for(unsigned int jjj = 0; jjj < NN.size(); jjj++){
+		if( OfflineTriggerStrategy == "AllNeighbours" || OfflineTriggerStrategy == "ThreeFoldAnywhere"  ) {
+			for(unsigned int jjj = 0; jjj < NN.size(); jjj++) {
 				NN2z.push_back(NN[jjj]);
 				NN2y.push_back(NN[jjj]);
 			}
 		}
 
 		// Loop over grid in third layer
-		for(std::vector<int>::iterator z2 = NN2z.begin() ; z2 != NN2z.end(); ++z2){
-		for(std::vector<int>::iterator y2 = NN2y.begin() ; y2 != NN2y.end(); ++y2){	
+		for(std::vector<int>::iterator z2 = NN2z.begin() ; z2 != NN2z.end(); ++z2) {
+		for(std::vector<int>::iterator y2 = NN2y.begin() ; y2 != NN2y.end(); ++y2) {	
 
 			// This hack is used to find where we left off in a previous candidate suggestion
-			if(tempcounter < CandidateCounter){
+			if(tempcounter < CandidateCounter) {
 				tempcounter++;
 				continue;
 			}
@@ -430,7 +418,7 @@ struct WithinRange{
 
 // This function is used to check if a set of proposed channels have Waveforms that lie within the coincidence threshold of each other
 // Length of Peaks is total number of channels
-bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, float MaxSamples){
+bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, float MaxSamples) {
 
 
 	//Figures out for which sequence all 3 pmt and Scint light up
@@ -451,7 +439,7 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 
 
 		// If this is true, then a signal consists of any hits in 3 different layers at any times
-		if(OfflineTriggerStrategy == "ThreeFoldAnywhere"){
+		if(OfflineTriggerStrategy == "ThreeFoldAnywhere") {
 			if(ActiveChannels[i] < NBlocksPerStack)
 				GoodEvent0 = true;
 			if( (ActiveChannels[i] >= NBlocksPerStack) && (ActiveChannels[i] < 2* NBlocksPerStack))
@@ -471,7 +459,7 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 
 
                 // If this is true, then a signal consists of any hits in the first layer
-                if(OfflineTriggerStrategy == "SingleLayer"){
+                if(OfflineTriggerStrategy == "SingleLayer") {
                         if(ActiveChannels[i] < NBlocksPerStack)
                                 GoodEvent = true;
 
@@ -491,7 +479,7 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 		bool TestNextCandidate = true;	
 		int CandidateCounter=0; // Used to go through all possible candidates given initial seed channel in layer 1
 		// Once have exhausted all possibilities, GetNextCandidate will set TestNextCandidate to false
-		while( TestNextCandidate == true ){
+		while( TestNextCandidate == true ) {
 
 			GetNextCandidate(TestNextCandidate, CandidateChannels, ActiveChannels[i], CandidateCounter);
 			if(TestNextCandidate == false)
@@ -504,9 +492,9 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 				cout<<" CandidateChannel " << CandidateChannels[0] << " " << CandidateChannels[1] << " " << CandidateChannels[2]<< " " <<endl;
 
 			// Check if proposed channels actually has activity
-			for(unsigned int j=0; j < CandidateChannels.size(); j++){
+			for(unsigned int j=0; j < CandidateChannels.size(); j++) {
 				auto it = std::find(ActiveChannels.begin(), ActiveChannels.end(), CandidateChannels[j] );
-				if(it == ActiveChannels.end() ){
+				if(it == ActiveChannels.end() ) {
 					recordEvent = false;
 					break;
 				} else {
@@ -516,7 +504,7 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 		
 
 			// If it has activity, check whether Peaks are within coincidence threshold
-			if(recordEvent == true){
+			if(recordEvent == true) {
 
 
  				float sampleLowBound = 0.;
@@ -529,7 +517,7 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 
 				// Defines a sliding window of length ATWDwindow, 
 				// Checks if all pairs of channels have at least one peak within this window
-				while(sampleLowBound <= 2*MaxSamples){
+				while(sampleLowBound <= 2*MaxSamples) {
 					GoodEvent0 = false;
 					GoodEvent1 = false;
 					GoodEvent2 = false;
@@ -556,8 +544,8 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 	  		}
 	
 			// Break out of TestNextCandidate while loop if found coincidence
-			if(DEBUG==true && GoodEvent==true){
-				for(int ll=0; ll < NStacks; ll++){
+			if(DEBUG==true && GoodEvent==true) {
+				for(int ll=0; ll < NStacks; ll++) {
 					cout << " PeakID["<<ll<<"]: " << PeakID[ll] << endl;
 					cout << Peaks.size() << " Peaks.size() " << endl;
 					cout << " ActiveChannels["<<ll<<"]: " << ActiveChannels[ll] << endl;
@@ -575,7 +563,7 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 
 	}	
 
-	if(DEBUG==true){
+	if(DEBUG==true) {
 		cout << GoodEvent << " GoodEvent " << endl;
 	}
 
@@ -587,10 +575,10 @@ bool IsCoincidence(vector<vector<float>> Peaks, vector<int> ActiveChannels, floa
 
 // This function goes through all events, Unwinds the waveforms, calls PeakFinder function, calls IsCoincidence
 // and outputs the total number of coincident events
-int CoincidencesManager( TTree *t1, vector<int> *Translation, vector<float> *v){ 
+int CoincidencesManager( TTree *t1, vector<int> *Translation, vector<float> *v) { 
 
 	int n = t1->GetEntries();
-	if(n > EventRangeEnd ){
+	if(n > EventRangeEnd ) {
 		n = EventRangeEnd;
 	}
 	
@@ -607,7 +595,7 @@ int CoincidencesManager( TTree *t1, vector<int> *Translation, vector<float> *v){
 
 
 	// Loop over number of events
-	for(int i = EventRangeBegin; i < n; i++){
+	for(int i = EventRangeBegin; i < n; i++) {
 		
 		if(DEBUG)
 			cout<<" Number of Events n: " << n << endl;
@@ -622,7 +610,7 @@ int CoincidencesManager( TTree *t1, vector<int> *Translation, vector<float> *v){
 
 
 		// Loop over all channels
-        	for (unsigned long j=0; j<Translation->size() ; j++){
+        	for (unsigned long j=0; j<Translation->size() ; j++) {
 
 			WaveformPerChannel.clear();
 			PeakLocationsPerChannel.clear();
@@ -645,7 +633,7 @@ int CoincidencesManager( TTree *t1, vector<int> *Translation, vector<float> *v){
 			// We are doing a translation:
 			counter+=nHits;
 
-			if(DEBUG){
+			if(DEBUG) {
 				cout <<"Waveform " <<endl;
 				for(unsigned long aaa = 0; aaa < WaveformPerChannel.size(); aaa++)
 					cout << WaveformPerChannel[aaa] <<",";
@@ -677,14 +665,14 @@ int CoincidencesManager( TTree *t1, vector<int> *Translation, vector<float> *v){
 
 
 // Unpacks the Root File Trees corresponding to the sensitivity information, and launches the CoincidencesManager
-void GeantSensitivities(string PathName, vector<string> Particle, string ConfigType, string ConfigDetails, bool OutputWaveformsToFile ){
+void GeantSensitivities(string PathName, vector<string> Particle, string ConfigType, string ConfigDetails, bool OutputWaveformsToFile ) {
 	TTree *t1;
 	// Read in a ROOT file
 	int SignalEvents;
 
 	// Loop over particles for which you want to calculate sensitivities
 	// i.e. mCP_UFO, Y1S, Y2S, Y3S, JPsi, specified in .ini file 
-	for(unsigned long i = 0; i < Particle.size(); i++ ){
+	for(unsigned long i = 0; i < Particle.size(); i++ ) {
 
 
         	std::ifstream infile;
@@ -778,14 +766,14 @@ cout << "RootFile = " << RootFile << endl;
 
 // Main Function to output pre packaged data from simulation
 // Geant4 calculates a bunch of truth information, and this is output to mathematica for plotting
-void KinematicPlots(string PathName, vector<string> PlotParticle, string ConfigType, vector<string> PlotCharge, vector<string> PlotMass){
+void KinematicPlots(string PathName, vector<string> PlotParticle, string ConfigType, vector<string> PlotCharge, vector<string> PlotMass) {
 	TTree *t1;
 	TTree *t2;
 
 	// We loop over the particles, masses and charges we are interested in plotting	
-	for(unsigned long i = 0; i < PlotParticle.size(); i++){
-	for(unsigned long a = 0; a < PlotMass.size(); a++){
-	for(unsigned long b = 0; b < PlotCharge.size(); b++){
+	for(unsigned long i = 0; i < PlotParticle.size(); i++) {
+	for(unsigned long a = 0; a < PlotMass.size(); a++) {
+	for(unsigned long b = 0; b < PlotCharge.size(); b++) {
 
 		// We extract these data from the root files
 		string RootFile;
@@ -849,7 +837,7 @@ if(PlotCharge[b].rfind("0") == PlotCharge[b].size() - 1) {
 
 
 
-		if(DEBUG){
+		if(DEBUG) {
 			ChannelsToCoordinates(3);
 			ChannelsToCoordinates(400);
 			ChannelsToCoordinates(420);
@@ -877,7 +865,7 @@ if(PlotCharge[b].rfind("0") == PlotCharge[b].size() - 1) {
 int main(int argc, char* argv[]) {
 
 	// Need to feed it a configuration file
-	if (argc !=2 ){
+	if (argc !=2 ) {
 		cout << " Need to specify a configuration File from /OfflineAnalysis/AnalyseGeant4ROOT/ConfigFiles" << endl;
 		exit(0);
 	}

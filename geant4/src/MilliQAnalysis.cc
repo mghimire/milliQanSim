@@ -4,28 +4,22 @@
 #include <numeric>
 #include "MilliQWaveform.hh"
 
-
 MilliQAnalysis::MilliQAnalysis(std::vector< std::vector<G4double> > ppmtTime, std::vector< std::vector<G4double> > pscintTime,std::vector< std::vector<G4double> > pscintEn, const boost::property_tree::ptree pt) : fIsActive(false), fPTree(pt), fVerbose(false) {
 
   fpmtTime = ppmtTime;
   fscintTime = pscintTime;
   fscintEn = pscintEn;
 
-
   CAENID();
 
+  if(fOnlineTriggerStrategy =="default") OnlineTrigger();
+  if(fOnlineTriggerStrategy =="SingleLayerOneHit") OnlineTriggerSingleLayerOneHit();
 
-  if(fOnlineTriggerStrategy =="default")
-    OnlineTrigger();
-  if(fOnlineTriggerStrategy=="SingleLayerOneHit")
-    OnlineTriggerSingleLayerOneHit();
-
-  if(IsActive() ){
+  if(IsActive() ) {
     CalculateUsefulInfo();
     Waveform();
     NearestN();
   }
-
 
 }
 
@@ -33,7 +27,6 @@ MilliQAnalysis::MilliQAnalysis(std::vector< std::vector<G4double> > ppmtTime, st
 // and that groups are neighbouring PMTs along "z"
 
 void MilliQAnalysis::CAENID() {
-
   try {
     boost::property_tree::ini_parser::read_ini(fPTree.get<std::string>("Configuration.GeometryConfigFile"), fGeometryPTree);
     boost::property_tree::ini_parser::read_ini(fPTree.get<std::string>("Configuration.PMTConfigFile"), fPMTPTree);
@@ -45,27 +38,22 @@ void MilliQAnalysis::CAENID() {
     G4Exception("MilliQAnalysis::ReadConfiguration()", "MilliQAnalysis::ConfigFileReadError", FatalException, msg);
   }
 
-
   // Calculates the CAEN IDs for which we need to check if there has been activation
   fNblock = G4ThreeVector(fGeometryPTree.get<G4int>("DetectorGeometry.NBlocks_X"),
 			  fGeometryPTree.get<G4int>("DetectorGeometry.NBlocks_Y"),
 			  fGeometryPTree.get<G4int>("DetectorGeometry.NBlocks_Z"));
   fNstack = fGeometryPTree.get<G4int>("DetectorGeometry.NStacks");
 
-  fDetectorSize = fNblock[0]*fNblock[1]*fNblock[2]*fNstack;
-
+  fDetectorSize = fNblock[0] * fNblock[1] * fNblock[2] * fNstack;
 
   fcoincidenceThreshold = fParticlePTree.get<G4double>("ParticleProperties.coincidenceThreshold")*ns;
 
-  G4int Nblocks = fNblock[0]*fNblock[1]*fNblock[2];
+  G4int Nblocks = fNblock[0] * fNblock[1] * fNblock[2];
 
   timePERsample = fPMTPTree.get<G4float>("PMT.timePERsample");
 
-
   // Specify Online Trigger Strategy
   fOnlineTriggerStrategy = fGeometryPTree.get<G4String>("DetectorGeometry.OnlineTriggerStrategy");
-
-
 
   // Suppose we have a 1x2x3 (x,y,z) layer, the numbering goes as:
   // 	+y
@@ -78,15 +66,13 @@ void MilliQAnalysis::CAENID() {
   // \/
   // -x
   // The rest of the detector goes in the +x direction
-
-
-  if( fOnlineTriggerStrategy == "default"){
+  if( fOnlineTriggerStrategy == "default") {
     // Collects IDs of each module
-    for(G4int iy = 0; iy<fNblock[1]/2; iy++){
-      for(G4int iz = 0; iz<fNblock[2]/2; iz++){
+    for(G4int iy = 0; iy<fNblock[1]/2; iy++) {
+      for(G4int iz = 0; iz<fNblock[2]/2; iz++) {
 
 	std::vector<G4int> SubModules;
-	for(G4int istack = 0; istack < fNstack; istack++){
+	for(G4int istack = 0; istack < fNstack; istack++) {
 	  SubModules.push_back(0+2*iz+iy*2*fNblock[2]+Nblocks*istack);
 	  SubModules.push_back(1+2*iz+iy*2*fNblock[2]+Nblocks*istack);
 	  SubModules.push_back(0+fNblock[2]+2*iz+iy*2*fNblock[2]+Nblocks*istack);
@@ -119,11 +105,11 @@ void MilliQAnalysis::OnlineTrigger() {
     GoodEvent0 = true;
     continue;
     }
-    if(fpmtTime[i].size() > 0 && i>=fNblock[1]*fNblock[2] && i < 2*fNblock[1]*fNblock[2]){
+    if(fpmtTime[i].size() > 0 && i>=fNblock[1]*fNblock[2] && i < 2*fNblock[1]*fNblock[2]) {
     GoodEvent1 = true;
     continue;
     }
-    if(fpmtTime[i].size() > 0 && i >= 2*fNblock[1]*fNblock[2]){
+    if(fpmtTime[i].size() > 0 && i >= 2*fNblock[1]*fNblock[2]) {
     GoodEvent2 = true;
     continue;
     }
@@ -140,16 +126,16 @@ void MilliQAnalysis::OnlineTrigger() {
 
 
   //Loops over all modules
-  for(G4int i = 0; i < fNblock[1]*fNblock[2]/4; i++){
+  for(G4int i = 0; i < fNblock[1]*fNblock[2]/4; i++) {
 
     //Loops over all combinations  of PMTs inside module
-    for(G4int j=1; j<4*fNstack; j++){
+    for(G4int j=1; j<4*fNstack; j++) {
 
       G4int jind=fModules[i][j];
       if(fpmtTime[jind].size() == 0)
 	continue;
 
-      for(G4int k=0; k<j; k++){
+      for(G4int k=0; k<j; k++) {
 
 	G4int kind=fModules[i][k];
 	if(fpmtTime[kind].size() == 0)
@@ -162,8 +148,8 @@ void MilliQAnalysis::OnlineTrigger() {
 	if(fIsActive) break;
 
 	// Loops over all hit times in 2 candidate PMTs
-	for(unsigned int a = 0; a < fpmtTime[jind].size(); a++){
-	  for(unsigned int b = 0; b < fpmtTime[kind].size(); b++){
+	for(unsigned int a = 0; a < fpmtTime[jind].size(); a++) {
+	  for(unsigned int b = 0; b < fpmtTime[kind].size(); b++) {
 
 	    //Compare all combinations of hit times
 	    if(fabs(fpmtTime[jind][a]/ns - fpmtTime[kind][b]/ns) <= fcoincidenceThreshold/ns) {
@@ -191,9 +177,9 @@ void MilliQAnalysis::OnlineTriggerSingleLayerOneHit() {
 
 
   //Loops over all modules
-  for(unsigned int i = 0; i < fpmtTime.size(); i++){
+  for(unsigned int i = 0; i < fpmtTime.size(); i++) {
 
-    if(fpmtTime[i].size() > 0){
+    if(fpmtTime[i].size() > 0) {
       fIsActive = true;
       break;
     }
@@ -224,7 +210,7 @@ void MilliQAnalysis::Waveform() {
   // Find Earliest and Latest PMT Hit Times
   for(std::vector<G4int>::iterator it = ActivePMT.begin(); it != ActivePMT.end(); ++it) {
 
-    if( fpmtTime[*it].size() > 0 ){
+    if( fpmtTime[*it].size() > 0 ) {
 
       // Find First Time
       if(FirstPMTTime > fpmtTime[*it][0])
@@ -258,13 +244,13 @@ void MilliQAnalysis::Waveform() {
 
       pmtSample = (int)((*jt-FirstPMTTime)/timePERsample)+nSamples*std::distance(ActivePMT.begin(), it);
 
-      while(pmtSample != sampleCounter){
+      while(pmtSample != sampleCounter) {
 	WaveformVoltage[sampleCounter]+=MyWaveform->GetBackgroundWaveform();
 	sampleCounter++;
       }
 
       Voltage = MyWaveform->GetSinglePhotoelectronWaveform();
-      for (unsigned int j = 0; j < Voltage.size(); j++){
+      for (unsigned int j = 0; j < Voltage.size(); j++) {
 	WaveformVoltage[sampleCounter+j] += Voltage[j];
       }
 
@@ -276,7 +262,7 @@ void MilliQAnalysis::Waveform() {
   delete(MyWaveform);
 }
 
-void MilliQAnalysis::CalculateUsefulInfo(){
+void MilliQAnalysis::CalculateUsefulInfo() {
 
   G4int median;
   G4double FirstHitTime = std::numeric_limits<double>::max() ;
@@ -287,16 +273,16 @@ void MilliQAnalysis::CalculateUsefulInfo(){
   NumberPMTHits.resize(fDetectorSize, 0);
   TimeOfFlight.resize(fDetectorSize, 0);
 
-  for (unsigned int j = 0; j < fDetectorSize; j++){
+  for (unsigned int j = 0; j < fDetectorSize; j++) {
 
 
-    if( fscintEn[j].size() > 0  && fscintTime[j].size() > 0){
+    if( fscintEn[j].size() > 0  && fscintTime[j].size() > 0) {
 
       // Figures out total Energy deposit for each Scintillator
       TotalEnergyDeposit[j] = std::accumulate(fscintEn[j].begin(),fscintEn[j].end(), 0.0)/MeV;
 
       // Figures out Scintillator ID of first Hit
-      if( fscintTime[j][0] < FirstHitTime ){
+      if( fscintTime[j][0] < FirstHitTime ) {
 	FirstHitTime = fscintTime[j][0];
 	FirstHitScintillator = j;
       }
@@ -312,7 +298,7 @@ void MilliQAnalysis::CalculateUsefulInfo(){
 
 
     // Figures out which PMTs are Active
-    if( fpmtTime[j].size() > 0 ){
+    if( fpmtTime[j].size() > 0 ) {
 
       ActivePMT.push_back(j);
 
@@ -428,31 +414,31 @@ void MilliQAnalysis::NearestN() {
 
   //The following identifies events in which 3 consecutive PMTs light up
   /*
-    for(G4int i=0; i < fNblock; i++){
-    if(fpmtTime[i].size()>0){
+    for(G4int i=0; i < fNblock; i++) {
+    if(fpmtTime[i].size()>0) {
     activePMT.push_back(i);
     }
     }
 
     for(unsigned int i=0; i < activePMT.size(); i++) {
     bool recordEvent = true;
-    for(G4int j=1; j < fNstack; j++){
-    if(fpmtTime[activePMT[i]+fNblock*j].size()==0){
+    for(G4int j=1; j < fNstack; j++) {
+    if(fpmtTime[activePMT[i]+fNblock*j].size()==0) {
     recordEvent = false;
     break;
     }
     }
-    if(recordEvent == true){
+    if(recordEvent == true) {
 
-    for(G4int j=1; j < fNstack; j++){
-    for(G4int k = 0; k < j; k++){
+    for(G4int j=1; j < fNstack; j++) {
+    for(G4int k = 0; k < j; k++) {
 
     bool tFlag = false;
 
-    for(unsigned int a = 0; a < fpmtTime[activePMT[i]+fNblock*k].size(); a++){
-    for(unsigned int b = 0; b < fpmtTime[activePMT[i]+fNblock*j].size(); b++){
+    for(unsigned int a = 0; a < fpmtTime[activePMT[i]+fNblock*k].size(); a++) {
+    for(unsigned int b = 0; b < fpmtTime[activePMT[i]+fNblock*j].size(); b++) {
 
-    if(fabs(fpmtTime[activePMT[i]+fNblock*k][a]/ns-fpmtTime[activePMT[i]+fNblock*j][b]/ns)<15/ns){
+    if(fabs(fpmtTime[activePMT[i]+fNblock*k][a]/ns-fpmtTime[activePMT[i]+fNblock*j][b]/ns)<15/ns) {
     tFlag = true;
     break;
     }
@@ -460,7 +446,7 @@ void MilliQAnalysis::NearestN() {
 
     if(tFlag == true) break;
     }
-    if(tFlag == false){
+    if(tFlag == false) {
     recordEvent = false;
     break;
     }
@@ -476,7 +462,7 @@ void MilliQAnalysis::NearestN() {
 
     }
     //If passes this, means that the same 3 scint and pmt light up!
-    if(activeEvent.size()==1){
+    if(activeEvent.size()==1) {
     G4cout<<"Recorded Event"<<G4endl;
     for(G4int j = 1; j < fNstack; j++)
     activeEvent.push_back(activeEvent[0]+j*fNblock);

@@ -125,15 +125,15 @@ void MilliQTrajectory::DrawTrajectory() const
   if (lineRequired) {
     G4Colour colour;
  
-    if(fParticleDefinition==G4OpticalPhoton::OpticalPhotonDefinition()){
+    if(fParticleDefinition==G4OpticalPhoton::OpticalPhotonDefinition()) {
       //Scintillation and Cerenkov photons are green
       colour = G4Colour(0.,1.,0.);
     }
-    else if(fParticleDefinition==G4Electron::ElectronDefinition()){
+    else if(fParticleDefinition==G4Electron::ElectronDefinition()) {
       //red
       colour = G4Colour(1.,0.,0.);
     }
-    else if(fParticleDefinition==G4Gamma::GammaDefinition()){
+    else if(fParticleDefinition==G4Gamma::GammaDefinition()) {
       //cyan
       colour = G4Colour(0.,1.,1.);
     }

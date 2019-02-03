@@ -42,7 +42,7 @@ MilliQPMTHit::MilliQPMTHit(const MilliQPMTHit &right) : G4VHit()
   fRot = right.fRot;
 }
 
-const MilliQPMTHit& MilliQPMTHit::operator=(const MilliQPMTHit &right){
+const MilliQPMTHit& MilliQPMTHit::operator=(const MilliQPMTHit &right) {
   fPmtNumber = right.fPmtNumber;
   fPhotons = right.fPhotons;
   fPhysVol = right.fPhysVol;
@@ -64,11 +64,11 @@ G4int MilliQPMTHit::operator==(const MilliQPMTHit &right) const {
 }
 
 
-void MilliQPMTHit::Draw(){
-  if(fDrawit&&fPhysVol){ //ReDraw only the PMTs that have hit counts > 0
+void MilliQPMTHit::Draw() {
+  if(fDrawit&&fPhysVol) { //ReDraw only the PMTs that have hit counts > 0
     //Also need a physical volume to be able to draw anything
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-    if(pVVisManager){//Make sure that the VisManager exists
+    if(pVVisManager) {//Make sure that the VisManager exists
       G4VisAttributes attribs(G4Colour(1.,0.,0.));
       attribs.SetForceSolid(true);
       G4RotationMatrix rot;

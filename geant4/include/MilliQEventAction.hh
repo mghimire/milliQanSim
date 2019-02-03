@@ -55,7 +55,7 @@ public:
 
   void SetSaveThreshold(G4int);
 
-  void SetEventVerbose(G4int v){ fVerbose = v;}
+  void SetEventVerbose(G4int v) { fVerbose = v;}
 
   void SetPMTThreshold(G4int t) { fPMTThreshold = t;}
 

@@ -112,7 +112,7 @@ MilliQMonopoleTransportation::MilliQMonopoleTransportation( const MilliQMonopole
 
 MilliQMonopoleTransportation::~MilliQMonopoleTransportation()
 {
-  if( (verboseLevel > 0) && (fSumEnergyKilled > 0.0 ) ){ 
+  if( (verboseLevel > 0) && (fSumEnergyKilled > 0.0 ) ) { 
     G4cout << " MilliQMonopoleTransportation: Statistics for looping particles "
            << G4endl;
     G4cout << "   Sum of energy of loopers killed: " <<  fSumEnergyKilled << G4endl;
@@ -482,7 +482,7 @@ G4VParticleChange* MilliQMonopoleTransportation::AlongStepDoIt( const G4Track& t
       G4double endEnergy= fTransportEndKineticEnergy;
 
       if( (endEnergy < fThreshold_Important_Energy) 
-          || (fNoLooperTrials >= fThresholdTrials ) ){
+          || (fNoLooperTrials >= fThresholdTrials ) ) {
         // Kill the looping particle 
         //
         fParticleChange.ProposeTrackStatus( fStopAndKill )  ;
@@ -508,7 +508,7 @@ G4VParticleChange* MilliQMonopoleTransportation::AlongStepDoIt( const G4Track& t
       else{
         fNoLooperTrials ++; 
 #ifdef G4VERBOSE
-        if( (verboseLevel > 2) ){
+        if( (verboseLevel > 2) ) {
           G4cout << "   MilliQMonopoleTransportation::AlongStepDoIt(): Particle looping -  "
                  << "   Number of trials = " << fNoLooperTrials 
                  << "   No of calls to  = " << noCalls 

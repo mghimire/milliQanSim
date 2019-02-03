@@ -48,15 +48,15 @@ MilliQSteppingMessenger::MilliQSteppingMessenger(MilliQSteppingAction* step)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MilliQSteppingMessenger::~MilliQSteppingMessenger(){
+MilliQSteppingMessenger::~MilliQSteppingMessenger() {
   delete fOneStepPrimariesCmd;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void 
-MilliQSteppingMessenger::SetNewValue(G4UIcommand* command,G4String newValue){
-  if( command == fOneStepPrimariesCmd ){
+MilliQSteppingMessenger::SetNewValue(G4UIcommand* command,G4String newValue) {
+  if( command == fOneStepPrimariesCmd ) {
     fStepping->SetOneStepPrimaries(fOneStepPrimariesCmd
 				   ->GetNewBoolValue(newValue));
   }

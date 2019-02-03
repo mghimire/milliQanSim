@@ -125,7 +125,7 @@ MilliQPrimaryGeneratorAction::~MilliQPrimaryGeneratorAction() {
 void MilliQPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 
   //Load in the data
-  if(firstPass == true){
+  if(firstPass == true) {
     GetLHEFourVectors();
     firstPass = false;
   }

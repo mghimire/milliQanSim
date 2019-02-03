@@ -86,7 +86,7 @@ MilliQPhysicsList::MilliQPhysicsList(const boost::property_tree::ptree pt) : G4V
 MilliQPhysicsList::~MilliQPhysicsList() {}
 
 
-void MilliQPhysicsList::SetCuts(){
+void MilliQPhysicsList::SetCuts() {
   //  " G4VUserPhysicsList::SetCutsWithDefault" method sets
   //   the default cut value for all particle types
   SetCutsWithDefault();

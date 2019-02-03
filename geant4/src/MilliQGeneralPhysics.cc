@@ -75,7 +75,7 @@ void MilliQGeneralPhysics::ConstructProcess()
 
   // Add Decay Process
   aParticleIterator->reset();
-  while( (*aParticleIterator)() ){
+  while( (*aParticleIterator)() ) {
     G4ParticleDefinition* particle = aParticleIterator->value();
     G4ProcessManager* pmanager = particle->GetProcessManager();
     if (fDecayProcess->IsApplicable(*particle)) {

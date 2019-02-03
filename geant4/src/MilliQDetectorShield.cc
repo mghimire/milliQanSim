@@ -14,7 +14,7 @@ MilliQDetectorShield::MilliQDetectorShield(G4LogicalVolume* dmotherLV,
 					   G4double TotalStackStart, G4double TotalStackEnd,
 					   G4ThreeVector InnerShieldThicknes, G4ThreeVector OutterShieldThicknes,
 					   G4ThreeVector ShieldDimensions,G4double ScintHouseThick,
-					   G4Material* InnerShieldMaterial, G4Material* OutterShieldMaterial){
+					   G4Material* InnerShieldMaterial, G4Material* OutterShieldMaterial) {
 
   fmotherLV 		= dmotherLV;
   fTotalStackStart 		= TotalStackStart;

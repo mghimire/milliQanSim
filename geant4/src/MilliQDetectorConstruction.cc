@@ -617,7 +617,7 @@ void MilliQDetectorConstruction::ConstructSDandField() {
     }
   */
   //((MilliQDetectorBlockLV*)fDetectorStack->GetLogicalVolume()->GetDaughter(0)->GetLogicalVolume())->GetPhotocathodeLV()->SetSensitiveDetector(fPmt_SD.Get());
-  //for(int a=0; a<fDetectorStack->GetLogicalVolume()->GetNoDaughters(); a++){
+  //for(int a=0; a<fDetectorStack->GetLogicalVolume()->GetNoDaughters(); a++) {
   //fDetectorStack->GetLogicalVolume()->GetDaughter(0)->GetLogicalVolume()->GetDaughter(1)->GetLogicalVolume()->GetDaughter(1)->GetLogicalVolume()->GetName()
   //MilliQDetectorBlockLV* aBlockLV = (MilliQDetectorBlockLV*)fDetectorStack->GetLogicalVolume()->GetDaughter(a);
   //MilliQDetectorBlockLV* aBlockLV = (MilliQDetectorBlockLV*)fDetectorStack->GetLogicalVolume()->GetDaughter(i);

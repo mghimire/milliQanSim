@@ -50,9 +50,9 @@ void MilliQSteppingVerbose::StepInfo()
  
   G4int prec = G4cout.precision(3);
 
-  if( verboseLevel >= 1 ){
+  if( verboseLevel >= 1 ) {
     if( verboseLevel >= 4 ) VerboseTrack();
-    if( verboseLevel >= 3 ){
+    if( verboseLevel >= 3 ) {
       G4cout << G4endl;
       G4cout << std::setw( 5) << "#Step#"     << " "
              << std::setw( 6) << "X"          << "    "
@@ -76,14 +76,14 @@ void MilliQSteppingVerbose::StepInfo()
 	   << std::setw(6) << G4BestUnit(fTrack->GetTrackLength(),"Length")
 	   << "  ";
 
-    // if( fStepStatus != fWorldBoundary){
+    // if( fStepStatus != fWorldBoundary) {
     if( fTrack->GetNextVolume() != 0 ) {
       G4cout << std::setw(10) << fTrack->GetVolume()->GetName();
     } else {
       G4cout << std::setw(10) << "OutOfWorld";
     }
 
-    if(fStep->GetPostStepPoint()->GetProcessDefinedStep() != NULL){
+    if(fStep->GetPostStepPoint()->GetProcessDefinedStep() != NULL) {
       G4cout << "  "
 	     << std::setw(10) << fStep->GetPostStepPoint()->GetProcessDefinedStep()
 	->GetProcessName();
@@ -93,11 +93,11 @@ void MilliQSteppingVerbose::StepInfo()
 
     G4cout << G4endl;
 
-    if( verboseLevel == 2 ){
+    if( verboseLevel == 2 ) {
       G4int tN2ndariesTot = fN2ndariesAtRestDoIt +
 	fN2ndariesAlongStepDoIt +
 	fN2ndariesPostStepDoIt;
-      if(tN2ndariesTot>0){
+      if(tN2ndariesTot>0) {
         G4cout << "    :----- List of 2ndaries - "
                << "#SpawnInStep=" << std::setw(3) << tN2ndariesTot
                << "(Rest="  << std::setw(2) << fN2ndariesAtRestDoIt
@@ -109,7 +109,7 @@ void MilliQSteppingVerbose::StepInfo()
                << G4endl;
 
         for(size_t lp1=(*fSecondary).size()-tN2ndariesTot;
-	    lp1<(*fSecondary).size(); lp1++){
+	    lp1<(*fSecondary).size(); lp1++) {
           G4cout << "    : "
                  << std::setw(6)
                  << G4BestUnit((*fSecondary)[lp1]->GetPosition().x(),"Length")
@@ -140,7 +140,7 @@ void MilliQSteppingVerbose::TrackingStarted()
 {
   CopyState();
   G4int prec = G4cout.precision(3);
-  if( verboseLevel > 0 ){
+  if( verboseLevel > 0 ) {
 
     G4cout << std::setw( 5) << "Step#"      << " "
            << std::setw( 6) << "X"          << "    "
@@ -163,7 +163,7 @@ void MilliQSteppingVerbose::TrackingStarted()
 	   << std::setw(6) << G4BestUnit(fTrack->GetTrackLength(),"Length")
 	   << "  ";
 
-    if(fTrack->GetNextVolume()){
+    if(fTrack->GetNextVolume()) {
       G4cout << std::setw(10) << fTrack->GetVolume()->GetName();
     } else {
       G4cout << std::setw(10) << "OutOfWorld";

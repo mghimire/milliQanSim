@@ -11,7 +11,7 @@ MilliQDetectorBlockParameterisation::MilliQDetectorBlockParameterisation(G4Three
 }
 
 
-MilliQDetectorBlockParameterisation::~MilliQDetectorBlockParameterisation(){}
+MilliQDetectorBlockParameterisation::~MilliQDetectorBlockParameterisation() {}
 
 
 void MilliQDetectorBlockParameterisation::ComputeTransformation(const G4int pId,

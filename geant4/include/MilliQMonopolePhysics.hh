@@ -66,9 +66,9 @@ public:
   void SetElectricCharge(G4double);
   void SetMonopoleMass(G4double);
 
-  G4double GetMagQ(){return fMagCharge;}
-  G4double GetElQ(){return fElCharge;}
-  G4double GetMass(){return fMonopoleMass;}
+  G4double GetMagQ() {return fMagCharge;}
+  G4double GetElQ() {return fElCharge;}
+  G4double GetMass() {return fMonopoleMass;}
 
 private:
 

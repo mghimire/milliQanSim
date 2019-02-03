@@ -26,7 +26,7 @@ public:
   void GetIdDimensionsFromId(G4int           pId,
 			     G4ThreeVector&  pIdDimensions) const;
     
-  G4int GetNumberOfBlocks(){return (G4int)(fN.x()*fN.y()*fN.z());}
+  G4int GetNumberOfBlocks() {return (G4int)(fN.x()*fN.y()*fN.z());}
   G4ThreeVector GetStackDimensions();
     
 private:

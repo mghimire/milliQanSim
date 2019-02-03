@@ -68,7 +68,7 @@ MilliQEventMessenger::MilliQEventMessenger(MilliQEventAction* event)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MilliQEventMessenger::~MilliQEventMessenger(){
+MilliQEventMessenger::~MilliQEventMessenger() {
   delete fSaveThresholdCmd;
   delete fVerboseCmd;
   delete fPmtThresholdCmd;
@@ -78,21 +78,21 @@ MilliQEventMessenger::~MilliQEventMessenger(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MilliQEventMessenger::SetNewValue(G4UIcommand* command, G4String newValue){
-  if( command == fSaveThresholdCmd ){
+void MilliQEventMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
+  if( command == fSaveThresholdCmd ) {
     fMilliQEvent->SetSaveThreshold(fSaveThresholdCmd->GetNewIntValue(newValue));
   }
-  else if( command == fVerboseCmd ){
+  else if( command == fVerboseCmd ) {
     fMilliQEvent->SetEventVerbose(fVerboseCmd->GetNewIntValue(newValue));
   }
-  else if( command == fPmtThresholdCmd ){
+  else if( command == fPmtThresholdCmd ) {
     fMilliQEvent->SetPMTThreshold(fPmtThresholdCmd->GetNewIntValue(newValue));
   }
-  else if(command == fForceDrawPhotonsCmd){
+  else if(command == fForceDrawPhotonsCmd) {
     fMilliQEvent->SetForceDrawPhotons(fForceDrawPhotonsCmd
 				      ->GetNewBoolValue(newValue));
   }
-  else if(command == fForceDrawNoPhotonsCmd){
+  else if(command == fForceDrawNoPhotonsCmd) {
     fMilliQEvent->SetForceDrawNoPhotons(fForceDrawNoPhotonsCmd
 					->GetNewBoolValue(newValue));
     G4cout<<"TEST"<<G4endl;

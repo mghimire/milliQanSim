@@ -19,7 +19,7 @@ MilliQDetectorStackParameterisation::MilliQDetectorStackParameterisation(G4int  
 }
 
 
-MilliQDetectorStackParameterisation::~MilliQDetectorStackParameterisation(){}
+MilliQDetectorStackParameterisation::~MilliQDetectorStackParameterisation() {}
 
 
 void MilliQDetectorStackParameterisation::ComputeTransformation(const G4int pId,

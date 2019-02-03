@@ -56,9 +56,9 @@ public:
   inline void* operator new(size_t);
   inline void  operator delete(void*);
 
-  void SetDrawTrajectory(G4bool b){fDrawit=b;}
-  void SetForceDrawTrajectory(G4bool b){fForceDraw=b;}
-  void SetForceNoDrawTrajectory(G4bool b){fForceNoDraw=b;}
+  void SetDrawTrajectory(G4bool b) {fDrawit=b;}
+  void SetForceDrawTrajectory(G4bool b) {fForceDraw=b;}
+  void SetForceNoDrawTrajectory(G4bool b) {fForceNoDraw=b;}
 
 private:
 

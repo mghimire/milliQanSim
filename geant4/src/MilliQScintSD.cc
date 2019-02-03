@@ -55,12 +55,12 @@ MilliQScintSD::~MilliQScintSD() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE){
+void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE) {
   fScintCollection = new MilliQScintHitsCollection
     (SensitiveDetectorName,collectionName[0]);
   //A way to keep all the hits of this event in one place if needed
   static G4int hitsCID = -1;
-  if(hitsCID<0){
+  if(hitsCID<0) {
     hitsCID = GetCollectionID(0);
   }
   hitsCE->AddHitsCollection( hitsCID, fScintCollection );
@@ -69,7 +69,7 @@ void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4bool MilliQScintSD::ProcessHits(G4Step* aStep,G4TouchableHistory* ){
+G4bool MilliQScintSD::ProcessHits(G4Step* aStep,G4TouchableHistory* ) {
   G4double edep = aStep->GetTotalEnergyDeposit();
   G4double edelta = aStep->GetDeltaEnergy();
   G4double edepion = aStep->GetTotalEnergyDeposit()-aStep->GetNonIonizingEnergyDeposit();

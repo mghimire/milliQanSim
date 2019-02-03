@@ -47,7 +47,7 @@ public:
   inline void SetPMTPhysVol(G4VPhysicalVolume* physVol) { this->fPhysVol = physVol; }
   inline G4VPhysicalVolume* GetPMTPhysVol() { return fPhysVol; }
 
-  //    inline void SetPMTPos(G4double x,G4double y,G4double z){
+  //    inline void SetPMTPos(G4double x,G4double y,G4double z) {
   //     fPos=G4ThreeVector(x,y,z);
 
   //    }
@@ -97,13 +97,13 @@ typedef G4THitsCollection<MilliQPMTHit> MilliQPMTHitsCollection;
 
 extern G4ThreadLocal G4Allocator<MilliQPMTHit>* MilliQPMTHitAllocator;
 
-inline void* MilliQPMTHit::operator new(size_t){
+inline void* MilliQPMTHit::operator new(size_t) {
   if(!MilliQPMTHitAllocator)
     MilliQPMTHitAllocator = new G4Allocator<MilliQPMTHit>;
   return (void *) MilliQPMTHitAllocator->MallocSingle();
 }
 
-inline void MilliQPMTHit::operator delete(void *aHit){
+inline void MilliQPMTHit::operator delete(void *aHit) {
   MilliQPMTHitAllocator->FreeSingle((MilliQPMTHit*) aHit);
 }
 

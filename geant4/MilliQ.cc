@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
   runManager->Initialize();
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
 
-  if(argc == 1){
+  if(argc == 1) {
 #ifdef G4UI_USE
     G4UIExecutive* ui = new G4UIExecutive(argc, argv);
     //UImanager->ApplyCommand("/control/macroPath /Users/JamesLondon/geant/geant-builds/MilliQ");
