@@ -1,4 +1,4 @@
-Executable = go.py
+Executable = runPoint.py
 Universe = vanilla
 Getenv = True
 request_memory = 2048MB

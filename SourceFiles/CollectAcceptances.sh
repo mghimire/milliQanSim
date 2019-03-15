@@ -1,13 +1,10 @@
 #!/bin/bash
 
-RESULTS=/xfs1/gmagill/Repository_MilliCharged/Geant4/MCPRepo/FullRun
-HOME=/xfs1/gmagill/Repository_MilliCharged/Geant4/SourceFiles
-
 charges=(0.001 0.01 0.1)
 
 process=("mCP_UFO" "JPsi" "Y1S" "Y2S" "Y3S")
 
-rm $HOME/acceptances.geometric.dat
+rm $DATADIR/acceptances.geometric.dat
 
 for proc in ${process[*]}
 do
@@ -27,11 +24,11 @@ do
 	do
 		for mass in ${masses[*]}
 		do
-			cd $HOME/"$proc"/"$mass"/"$charge"
+			cd $DATADIR/"$proc"/"$mass"/"$charge"
 			accept="$(echo $(echo $(cat acceptance.txt | sed -e 's/e/*10^/g') | cut -d' ' -f1))"
-			echo "$proc" "$mass" "$charge" "$accept" >> $HOME/acceptances.geometric.dat
+			echo "$proc" "$mass" "$charge" "$accept" >> $DATADIR/acceptances.geometric.dat
 		done
 	done
 done
 
-cp $HOME/acceptances.geometric.dat $RESULTS
+cp $DATADIR/acceptances.geometric.dat $RESULTSDIR
