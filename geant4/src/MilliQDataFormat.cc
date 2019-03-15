@@ -40,7 +40,7 @@ void MilliQDataFormat::CreateHistograms() {
 void MilliQDataFormat::CreateNtuples() {
 
   const MilliQEventAction* constEventAction =
-		  static_cast<const MilliQEventAction*>(G4RunManager::GetRunManager()->GetUserEventAction());
+    static_cast<const MilliQEventAction*>(G4RunManager::GetRunManager()->GetUserEventAction());
   MilliQEventAction* eventAction = const_cast<MilliQEventAction*>(constEventAction);
 
   // kAll
@@ -53,8 +53,8 @@ void MilliQDataFormat::CreateNtuples() {
   analysisManager->CreateNtupleIColumn("NumberPMTHits", eventAction->GetNumberPMTHits());				// column Id = 5
   analysisManager->CreateNtupleIColumn("FirstHitScintillator");											// column Id = 6
   analysisManager->CreateNtupleIColumn("PhotonCountAllScintillators");									// column Id = 7
-//analysisManager->CreateNtupleDColumn("ScintillatorEnergyDeposits", eventAction->Get()); 				// column Id = 8
-//analysisManager->CreateNtupleDColumn("ScintillatorTimes", eventAction->Get()); 						// column Id = 9
+  //analysisManager->CreateNtupleDColumn("ScintillatorEnergyDeposits", eventAction->Get()); 				// column Id = 8
+  //analysisManager->CreateNtupleDColumn("ScintillatorTimes", eventAction->Get()); 						// column Id = 9
   analysisManager->FinishNtuple();
 
 

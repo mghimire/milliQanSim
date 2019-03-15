@@ -40,16 +40,16 @@ class G4UIcmdWithABool;
 
 class MilliQSteppingMessenger: public G4UImessenger
 {
-  public:
-    MilliQSteppingMessenger(MilliQSteppingAction*);
-    virtual ~MilliQSteppingMessenger();
+public:
+  MilliQSteppingMessenger(MilliQSteppingAction*);
+  virtual ~MilliQSteppingMessenger();
  
-    virtual void SetNewValue(G4UIcommand*, G4String);
+  virtual void SetNewValue(G4UIcommand*, G4String);
 
-  private:
+private:
 
-    MilliQSteppingAction*        fStepping;
-    G4UIcmdWithABool*  fOneStepPrimariesCmd;
+  MilliQSteppingAction*        fStepping;
+  G4UIcmdWithABool*  fOneStepPrimariesCmd;
  
 };
 

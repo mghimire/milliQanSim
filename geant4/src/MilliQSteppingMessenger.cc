@@ -38,26 +38,26 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQSteppingMessenger::MilliQSteppingMessenger(MilliQSteppingAction* step)
- : fStepping(step)
+  : fStepping(step)
 {
   fOneStepPrimariesCmd = new G4UIcmdWithABool("/MilliQ/oneStepPrimaries",this);
   fOneStepPrimariesCmd->
-      SetGuidance("Only allows primaries to go one step before being killed.");
+    SetGuidance("Only allows primaries to go one step before being killed.");
 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MilliQSteppingMessenger::~MilliQSteppingMessenger(){
+MilliQSteppingMessenger::~MilliQSteppingMessenger() {
   delete fOneStepPrimariesCmd;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void 
-MilliQSteppingMessenger::SetNewValue(G4UIcommand* command,G4String newValue){
-  if( command == fOneStepPrimariesCmd ){
+MilliQSteppingMessenger::SetNewValue(G4UIcommand* command,G4String newValue) {
+  if( command == fOneStepPrimariesCmd ) {
     fStepping->SetOneStepPrimaries(fOneStepPrimariesCmd
-                                  ->GetNewBoolValue(newValue));
+				   ->GetNewBoolValue(newValue));
   }
 }

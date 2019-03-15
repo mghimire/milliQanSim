@@ -55,12 +55,12 @@ MilliQScintSD::~MilliQScintSD() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE){
+void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE) {
   fScintCollection = new MilliQScintHitsCollection
-                      (SensitiveDetectorName,collectionName[0]);
+    (SensitiveDetectorName,collectionName[0]);
   //A way to keep all the hits of this event in one place if needed
   static G4int hitsCID = -1;
-  if(hitsCID<0){
+  if(hitsCID<0) {
     hitsCID = GetCollectionID(0);
   }
   hitsCE->AddHitsCollection( hitsCID, fScintCollection );
@@ -69,7 +69,7 @@ void MilliQScintSD::Initialize(G4HCofThisEvent* hitsCE){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4bool MilliQScintSD::ProcessHits(G4Step* aStep,G4TouchableHistory* ){
+G4bool MilliQScintSD::ProcessHits(G4Step* aStep,G4TouchableHistory* ) {
   G4double edep = aStep->GetTotalEnergyDeposit();
   G4double edelta = aStep->GetDeltaEnergy();
   G4double edepion = aStep->GetTotalEnergyDeposit()-aStep->GetNonIonizingEnergyDeposit();
@@ -85,7 +85,7 @@ G4bool MilliQScintSD::ProcessHits(G4Step* aStep,G4TouchableHistory* ){
   G4int scintNumberBlock = aStep->GetPreStepPoint()->GetTouchable()->GetReplicaNumber(2);//GetReplicaNumber(1);
   G4int scintNumberStack = aStep->GetPreStepPoint()->GetTouchable()->GetReplicaNumber(3);//GetReplicaNumber(1);
   G4int scintNumber = scintNumberStack*NBlocks+scintNumberBlock;
- // G4cout<<"scintNumberBlock "<<scintNumberBlock<<" scintNumberStack "<<scintNumberStack<<" scintNumber "<<scintNumber<<G4endl;
+  // G4cout<<"scintNumberBlock "<<scintNumberBlock<<" scintNumberStack "<<scintNumberStack<<" scintNumber "<<scintNumber<<G4endl;
 
   G4double hitTime = thePrePoint->GetGlobalTime();
 

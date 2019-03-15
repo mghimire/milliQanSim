@@ -44,28 +44,28 @@ class G4Polyline;                   // Forward declaration.
 
 class MilliQTrajectory : public G4Trajectory
 {
-  public:
+public:
 
-    MilliQTrajectory();
-    MilliQTrajectory(const G4Track* aTrack);
-    MilliQTrajectory(MilliQTrajectory &);
-    virtual ~MilliQTrajectory();
+  MilliQTrajectory();
+  MilliQTrajectory(const G4Track* aTrack);
+  MilliQTrajectory(MilliQTrajectory &);
+  virtual ~MilliQTrajectory();
  
-    virtual void DrawTrajectory() const;
+  virtual void DrawTrajectory() const;
  
-    inline void* operator new(size_t);
-    inline void  operator delete(void*);
+  inline void* operator new(size_t);
+  inline void  operator delete(void*);
 
-    void SetDrawTrajectory(G4bool b){fDrawit=b;}
-    void SetForceDrawTrajectory(G4bool b){fForceDraw=b;}
-    void SetForceNoDrawTrajectory(G4bool b){fForceNoDraw=b;}
+  void SetDrawTrajectory(G4bool b) {fDrawit=b;}
+  void SetForceDrawTrajectory(G4bool b) {fForceDraw=b;}
+  void SetForceNoDrawTrajectory(G4bool b) {fForceNoDraw=b;}
 
-  private:
+private:
 
-    G4bool fDrawit;
-    G4bool fForceNoDraw;
-    G4bool fForceDraw;
-    G4ParticleDefinition* fParticleDefinition;
+  G4bool fDrawit;
+  G4bool fForceNoDraw;
+  G4bool fForceDraw;
+  G4ParticleDefinition* fParticleDefinition;
 };
 
 extern G4ThreadLocal G4Allocator<MilliQTrajectory>* MilliQTrajectoryAllocator;
@@ -73,7 +73,7 @@ extern G4ThreadLocal G4Allocator<MilliQTrajectory>* MilliQTrajectoryAllocator;
 inline void* MilliQTrajectory::operator new(size_t)
 {
   if(!MilliQTrajectoryAllocator)
-      MilliQTrajectoryAllocator = new G4Allocator<MilliQTrajectory>;
+    MilliQTrajectoryAllocator = new G4Allocator<MilliQTrajectory>;
   return (void*)MilliQTrajectoryAllocator->MallocSingle();
 }
 

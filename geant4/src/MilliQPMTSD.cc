@@ -35,14 +35,14 @@ void MilliQPMTSD::Initialize(G4HCofThisEvent* hitsCE) {
 
   //Store collection with event and keep ID
   static G4int hitCID = -1;
-  if(hitCID<0){
+  if(hitCID<0) {
     // hitCID = GetCollectionID(0);
     hitCID = G4SDManager::GetSDMpointer()->GetCollectionID(fPMTHitCollection);
   }
   hitsCE->AddHitsCollection( hitCID, fPMTHitCollection );
 
   static G4int AllhitCID = -1;
-  if(AllhitCID<0){
+  if(AllhitCID<0) {
     // hitCID = GetCollectionID(0);
     AllhitCID = G4SDManager::GetSDMpointer()->GetCollectionID(fPMTAllHitCollection);
   }
@@ -59,7 +59,7 @@ void MilliQPMTSD::Initialize(G4HCofThisEvent* hitsCE) {
 
 //Calling this does the regular Sensitive detector business
 //It calculates the energy deposed in the PMT by particles
-G4bool MilliQPMTSD::ProcessHits(G4Step* step,G4TouchableHistory* ){
+G4bool MilliQPMTSD::ProcessHits(G4Step* step,G4TouchableHistory* ) {
 
   G4double edep = step->GetTotalEnergyDeposit();
   if (edep==0.) return true;

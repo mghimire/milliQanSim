@@ -15,7 +15,6 @@ void MilliQActionInitialization::BuildForMaster() const {
 }
 
 void MilliQActionInitialization::Build() const {
-
   SetUserAction(new MilliQPrimaryGeneratorAction(fPTree));
 
   SetUserAction(new MilliQStackingAction());

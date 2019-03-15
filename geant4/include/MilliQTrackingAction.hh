@@ -39,17 +39,17 @@ class MilliQRecorderBase;
 
 class MilliQTrackingAction : public G4UserTrackingAction {
 
-  public:
+public:
 
-    MilliQTrackingAction(MilliQRecorderBase*);
-    virtual ~MilliQTrackingAction() {};
+  MilliQTrackingAction(MilliQRecorderBase*);
+  virtual ~MilliQTrackingAction() {};
 
-    virtual void PreUserTrackingAction(const G4Track*);
-    virtual void PostUserTrackingAction(const G4Track*);
+  virtual void PreUserTrackingAction(const G4Track*);
+  virtual void PostUserTrackingAction(const G4Track*);
 
-  private:
+private:
 
-    MilliQRecorderBase* fRecorder;
+  MilliQRecorderBase* fRecorder;
 
 };
 

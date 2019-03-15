@@ -10,14 +10,14 @@
 
 class MilliQPhysicsList: public G4VModularPhysicsList
 {
-  public:
+public:
 
-    MilliQPhysicsList(const boost::property_tree::ptree pt);
-    virtual ~MilliQPhysicsList();
+  MilliQPhysicsList(const boost::property_tree::ptree pt);
+  virtual ~MilliQPhysicsList();
 
-  public:
+public:
 
-    virtual void SetCuts();
+  virtual void SetCuts();
 
 };
 

@@ -6,12 +6,10 @@
 #include "globals.hh"
 #include "G4ThreeVector.hh"
 
-
-
 #include <vector>
 
 class MilliQAnalysis {
- public:
+public:
   MilliQAnalysis(std::vector< std::vector<G4double> > pmtTime,
 		 std::vector< std::vector<G4double> > scintTime,
 		 std::vector< std::vector<G4double> > scintEn,
@@ -35,15 +33,15 @@ class MilliQAnalysis {
   G4int GetFirstHitScintillator() { return FirstHitScintillator; }
 
   // Output MilliQCAEN info
- std::vector<G4float> GetWaveformVoltage() { return WaveformVoltage;}
- std::vector<G4int> GetWaveformLengthPerChannel() { return WaveformLengthPerChannel;}
- G4float GetFirstPMTTime() { return FirstPMTTime;}
- G4float GetTimePerSample() { return timePERsample;}
+  std::vector<G4float> GetWaveformVoltage() { return WaveformVoltage;}
+  std::vector<G4int> GetWaveformLengthPerChannel() { return WaveformLengthPerChannel;}
+  G4float GetFirstPMTTime() { return FirstPMTTime;}
+  G4float GetTimePerSample() { return timePERsample;}
 
 
   inline void SetVerbose(bool v) { fVerbose = v; }
   
- private:
+private:
 
   std::vector< std::vector<G4double> > fpmtTime;
   std::vector< std::vector<G4double> > fscintTime;
@@ -59,10 +57,10 @@ class MilliQAnalysis {
   G4int FirstHitScintillator;
 
   // Output MilliQCAEN info
- std::vector<G4float> WaveformVoltage;
- std::vector<G4int> WaveformLengthPerChannel;
- G4float FirstPMTTime;
- G4float timePERsample;
+  std::vector<G4float> WaveformVoltage;
+  std::vector<G4int> WaveformLengthPerChannel;
+  G4float FirstPMTTime;
+  G4float timePERsample;
 
   G4float LastPMTTime;
   std::vector< std::vector<G4int> > fModules;

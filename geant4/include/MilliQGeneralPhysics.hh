@@ -41,19 +41,19 @@
 
 class MilliQGeneralPhysics : public G4VPhysicsConstructor
 {
-  public:
+public:
 
-    MilliQGeneralPhysics(const G4String& name = "general");
-    virtual ~MilliQGeneralPhysics();
+  MilliQGeneralPhysics(const G4String& name = "general");
+  virtual ~MilliQGeneralPhysics();
 
-    // This method will be invoked in the Construct() method.
-    // each particle type will be instantiated
-    virtual void ConstructParticle();
+  // This method will be invoked in the Construct() method.
+  // each particle type will be instantiated
+  virtual void ConstructParticle();
  
-    // This method will be invoked in the Construct() method.
-    // each physics process will be instantiated and
-    // registered to the process manager of each particle type
-    virtual void ConstructProcess();
+  // This method will be invoked in the Construct() method.
+  // each physics process will be instantiated and
+  // registered to the process manager of each particle type
+  virtual void ConstructProcess();
 
 };
 

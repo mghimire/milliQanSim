@@ -114,19 +114,19 @@ MilliQMonopolePhysicsMessenger::~MilliQMonopolePhysicsMessenger()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void MilliQMonopolePhysicsMessenger::SetNewValue(G4UIcommand* command,
-                                             G4String newValue)
+						 G4String newValue)
 { 
   if (command == fPhysicsCmd)
-   { G4double q, m; G4double mass; 
-     G4String unts;
-     std::istringstream is(newValue);
-     is >> m >> q >> mass >> unts;
-     G4String unit = unts;
-     G4double vUnit = G4UIcommand::ValueOf(unit);  
-     fPhys->SetMagneticCharge(m);
-     fPhys->SetElectricCharge(q);
-     fPhys->SetMonopoleMass(mass*vUnit);
-   }
+    { G4double q, m; G4double mass; 
+      G4String unts;
+      std::istringstream is(newValue);
+      is >> m >> q >> mass >> unts;
+      G4String unit = unts;
+      G4double vUnit = G4UIcommand::ValueOf(unit);  
+      fPhys->SetMagneticCharge(m);
+      fPhys->SetElectricCharge(q);
+      fPhys->SetMonopoleMass(mass*vUnit);
+    }
   if (command == fMCmd) {
     fPhys->SetMagneticCharge(fMCmd->GetNewDoubleValue(newValue));
   }

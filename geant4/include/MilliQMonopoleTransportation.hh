@@ -4,7 +4,7 @@
 // *                                                                  *
 // * The  Geant4 software  is  copyright of the Copyright Holders  of *
 // * the Geant4 Collaboration.  It is provided  under  the terms  and *
-// * conditions of the Geant4 Software License,  included in the file *
+w// * conditions of the Geant4 Software License,  included in the file *
 // * LICENSE and available at  http://cern.ch/geant4/license .  These *
 // * include a list of copyright holders.                             *
 // *                                                                  *
@@ -67,143 +67,143 @@ class MilliQMonopoleTransportation : public G4VProcess
 {
   // Concrete class that does the geometrical transport 
 
-  public:  // with description
+public:  // with description
 
-     MilliQMonopoleTransportation(const MilliQMonopole* p, G4int verbosityLevel= 1);
-     ~MilliQMonopoleTransportation();
+  MilliQMonopoleTransportation(const MilliQMonopole* p, G4int verbosityLevel= 1);
+  ~MilliQMonopoleTransportation();
 
-     virtual G4double AlongStepGetPhysicalInteractionLength(
-                             const G4Track& track,
-                                   G4double  previousStepSize,
-                                   G4double  currentMinimumStep, 
-                                   G4double& currentSafety,
-                                   G4GPILSelection* selection
-                            );
+  virtual G4double AlongStepGetPhysicalInteractionLength(
+							 const G4Track& track,
+							 G4double  previousStepSize,
+							 G4double  currentMinimumStep, 
+							 G4double& currentSafety,
+							 G4GPILSelection* selection
+							 );
 
-     virtual G4VParticleChange* AlongStepDoIt(
-                             const G4Track& track,
-                             const G4Step& stepData
-                            );
+  virtual G4VParticleChange* AlongStepDoIt(
+					   const G4Track& track,
+					   const G4Step& stepData
+					   );
 
-     virtual G4VParticleChange* PostStepDoIt(
-                             const G4Track& track,
-                             const G4Step&  stepData
-                            );
-       // Responsible for the relocation.
+  virtual G4VParticleChange* PostStepDoIt(
+					  const G4Track& track,
+					  const G4Step&  stepData
+					  );
+  // Responsible for the relocation.
 
-     virtual G4double PostStepGetPhysicalInteractionLength(
-                             const G4Track& ,
-                             G4double   previousStepSize,
-                             G4ForceCondition* pForceCond
-                            );
-       // Forces the PostStepDoIt action to be called, 
-       // but does not limit the step.
+  virtual G4double PostStepGetPhysicalInteractionLength(
+							const G4Track& ,
+							G4double   previousStepSize,
+							G4ForceCondition* pForceCond
+							);
+  // Forces the PostStepDoIt action to be called, 
+  // but does not limit the step.
 
-     G4PropagatorInField* GetPropagatorInField();
-     void SetPropagatorInField( G4PropagatorInField* pFieldPropagator);
-       // Access/set the assistant class that Propagate in a Field.
+  G4PropagatorInField* GetPropagatorInField();
+  void SetPropagatorInField( G4PropagatorInField* pFieldPropagator);
+  // Access/set the assistant class that Propagate in a Field.
 
-     inline G4double GetThresholdWarningEnergy() const; 
-     inline G4double GetThresholdImportantEnergy() const; 
-     inline G4int GetThresholdTrials() const; 
+  inline G4double GetThresholdWarningEnergy() const; 
+  inline G4double GetThresholdImportantEnergy() const; 
+  inline G4int GetThresholdTrials() const; 
 
-     inline void SetThresholdWarningEnergy( G4double newEnWarn ); 
-     inline void SetThresholdImportantEnergy( G4double newEnImp ); 
-     inline void SetThresholdTrials(G4int newMaxTrials ); 
+  inline void SetThresholdWarningEnergy( G4double newEnWarn ); 
+  inline void SetThresholdImportantEnergy( G4double newEnImp ); 
+  inline void SetThresholdTrials(G4int newMaxTrials ); 
 
-     // Get/Set parameters for killing loopers: 
-     //   Above 'important' energy a 'looping' particle in field will 
-     //   *NOT* be abandoned, except after fThresholdTrials attempts.
-     // Below Warning energy, no verbosity for looping particles is issued
+  // Get/Set parameters for killing loopers: 
+  //   Above 'important' energy a 'looping' particle in field will 
+  //   *NOT* be abandoned, except after fThresholdTrials attempts.
+  // Below Warning energy, no verbosity for looping particles is issued
 
-     inline G4double GetMaxEnergyKilled() const; 
-     inline G4double GetSumEnergyKilled() const;
-     inline void ResetKilledStatistics( G4int report = 1);      
-     // Statistics for tracks killed (currently due to looping in field)
+  inline G4double GetMaxEnergyKilled() const; 
+  inline G4double GetSumEnergyKilled() const;
+  inline void ResetKilledStatistics( G4int report = 1);      
+  // Statistics for tracks killed (currently due to looping in field)
 
-     inline void EnableShortStepOptimisation(G4bool optimise=true); 
-     // Whether short steps < safety will avoid to call Navigator (if field=0)
+  inline void EnableShortStepOptimisation(G4bool optimise=true); 
+  // Whether short steps < safety will avoid to call Navigator (if field=0)
 
-  public:  // without description
+public:  // without description
 
-     virtual G4double AtRestGetPhysicalInteractionLength(
-                             const G4Track& ,
-                             G4ForceCondition* 
-                            ) { return -1.0; };
-     // No operation in  AtRestDoIt.
+  virtual G4double AtRestGetPhysicalInteractionLength(
+						      const G4Track& ,
+						      G4ForceCondition* 
+						      ) { return -1.0; };
+  // No operation in  AtRestDoIt.
 
-     virtual G4VParticleChange* AtRestDoIt(
-                             const G4Track& ,
-                             const G4Step&
-                            ) {return 0;};
-     // No operation in  AtRestDoIt.
+  virtual G4VParticleChange* AtRestDoIt(
+					const G4Track& ,
+					const G4Step&
+					) {return 0;};
+  // No operation in  AtRestDoIt.
 
   virtual void StartTracking(G4Track* aTrack);
-       // Reset state for new (potentially resumed) track 
+  // Reset state for new (potentially resumed) track 
 
-  protected:
+protected:
 
-     G4bool               DoesGlobalFieldExist();
-       // Checks whether a field exists for the "global" field manager.
+  G4bool               DoesGlobalFieldExist();
+  // Checks whether a field exists for the "global" field manager.
 
-  private:
+private:
 
-     const MilliQMonopole* fParticleDef;
+  const MilliQMonopole* fParticleDef;
 
-     MilliQMonopoleFieldSetup*  fMagSetup;
+  MilliQMonopoleFieldSetup*  fMagSetup;
     
-     G4Navigator*         fLinearNavigator;
-     G4PropagatorInField* fFieldPropagator;
+  G4Navigator*         fLinearNavigator;
+  G4PropagatorInField* fFieldPropagator;
   // The Propagators used to transport the particle
 
-     G4ThreeVector        fTransportEndPosition;
-     G4ThreeVector        fTransportEndMomentumDir;
-     G4double             fTransportEndKineticEnergy;
-     G4ThreeVector        fTransportEndSpin;
-     G4bool               fMomentumChanged;
-     //  G4bool               fEnergyChanged;
-     G4bool               fEndGlobalTimeComputed; 
-     G4double             fCandidateEndGlobalTime;
+  G4ThreeVector        fTransportEndPosition;
+  G4ThreeVector        fTransportEndMomentumDir;
+  G4double             fTransportEndKineticEnergy;
+  G4ThreeVector        fTransportEndSpin;
+  G4bool               fMomentumChanged;
+  //  G4bool               fEnergyChanged;
+  G4bool               fEndGlobalTimeComputed; 
+  G4double             fCandidateEndGlobalTime;
   // The particle's state after this Step, Store for DoIt
 
-     G4bool               fParticleIsLooping;
+  G4bool               fParticleIsLooping;
 
-     G4TouchableHandle    fCurrentTouchableHandle;
+  G4TouchableHandle    fCurrentTouchableHandle;
 
-     G4bool fGeometryLimitedStep;
-       // Flag to determine whether a boundary was reached.
+  G4bool fGeometryLimitedStep;
+  // Flag to determine whether a boundary was reached.
 
-     G4ThreeVector  fPreviousSftOrigin;
-     G4double       fPreviousSafety; 
-       // Remember last safety origin & value.
+  G4ThreeVector  fPreviousSftOrigin;
+  G4double       fPreviousSafety; 
+  // Remember last safety origin & value.
 
-     G4ParticleChangeForTransport fParticleChange;
-       // New ParticleChange
+  G4ParticleChangeForTransport fParticleChange;
+  // New ParticleChange
 
-     G4double endpointDistance;
+  G4double endpointDistance;
 
   // Thresholds for looping particles: 
   // 
-     G4double fThreshold_Warning_Energy;     //  Warn above this energy
-     G4double fThreshold_Important_Energy;   //  Hesitate above this
-     G4int    fThresholdTrials;              //    for this no of trials
-       // Above 'important' energy a 'looping' particle in field will 
-       //   *NOT* be abandoned, except after fThresholdTrials attempts.
-     // G4double fUnimportant_Energy;
-       //  Below this energy, no verbosity for looping particles is issued
+  G4double fThreshold_Warning_Energy;     //  Warn above this energy
+  G4double fThreshold_Important_Energy;   //  Hesitate above this
+  G4int    fThresholdTrials;              //    for this no of trials
+  // Above 'important' energy a 'looping' particle in field will 
+  //   *NOT* be abandoned, except after fThresholdTrials attempts.
+  // G4double fUnimportant_Energy;
+  //  Below this energy, no verbosity for looping particles is issued
 
   // Counter for steps in which particle reports 'looping',
   //   if it is above 'Important' Energy 
-     G4int    fNoLooperTrials; 
+  G4int    fNoLooperTrials; 
   // Statistics for tracks abandoned
-     G4double fSumEnergyKilled;
-     G4double fMaxEnergyKilled;
+  G4double fSumEnergyKilled;
+  G4double fMaxEnergyKilled;
 
   // Whether to avoid calling G4Navigator for short step ( < safety)
   //   If using it, the safety estimate for endpoint will likely be smaller.
-     G4bool   fShortStepOptimisation; 
+  G4bool   fShortStepOptimisation; 
 
-     G4SafetyHelper* fpSafetyHelper;  // To pass it the safety value obtained
+  G4SafetyHelper* fpSafetyHelper;  // To pass it the safety value obtained
 
 };
 

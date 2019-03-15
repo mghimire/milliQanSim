@@ -104,8 +104,8 @@ MilliQPrimaryGeneratorAction::MilliQPrimaryGeneratorAction(const boost::property
 
   G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
   G4ParticleDefinition* particle = particleTable->FindParticle(
-		  fParticlePTree.get<G4String>("ParticleProperties.Particle")
-		  );
+							       fParticlePTree.get<G4String>("ParticleProperties.Particle")
+							       );
 
   fParticleGun->SetParticleDefinition(particle);
   fgPrimaryParticle = particle;
@@ -125,7 +125,7 @@ MilliQPrimaryGeneratorAction::~MilliQPrimaryGeneratorAction() {
 void MilliQPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 
   //Load in the data
-  if(firstPass == true){
+  if(firstPass == true) {
     GetLHEFourVectors();
     firstPass = false;
   }
@@ -154,7 +154,8 @@ void MilliQPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 
   MoNorm = sqrt(pow(xMo, 2) + pow(yMo, 2) + pow(zMo, 2));
 
-  if(neventLHE % 100 == 0) G4cout <<"neventLHE "<<neventLHE<<G4endl;
+  //durp
+  if(neventLHE % 1 == 0) G4cout <<"neventLHE "<<neventLHE<<G4endl;
 
   //	G4cout << "xMoGun " << xMo << " yMoGun " << yMo << " zMoGun " << zMo << " xGun " << x0 << " yGun " << y0 << " zGun " << z0 << G4endl;
   //	G4cout << "nevent " << neventLHE << " Q " << qmeList[neventLHE][0] << " M " << qmeList[neventLHE][1] << " E "<< qmeList[neventLHE][2] << G4endl;

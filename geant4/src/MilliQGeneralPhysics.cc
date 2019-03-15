@@ -38,7 +38,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQGeneralPhysics::MilliQGeneralPhysics(const G4String& name)
-                     :  G4VPhysicsConstructor(name) {}
+  :  G4VPhysicsConstructor(name) {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -75,7 +75,7 @@ void MilliQGeneralPhysics::ConstructProcess()
 
   // Add Decay Process
   aParticleIterator->reset();
-  while( (*aParticleIterator)() ){
+  while( (*aParticleIterator)() ) {
     G4ParticleDefinition* particle = aParticleIterator->value();
     G4ProcessManager* pmanager = particle->GetProcessManager();
     if (fDecayProcess->IsApplicable(*particle)) {

@@ -11,22 +11,22 @@
 #include "G4Material.hh"
 
 MilliQDetectorShield::MilliQDetectorShield(G4LogicalVolume* dmotherLV,
-		 G4double TotalStackStart, G4double TotalStackEnd,
-		 G4ThreeVector InnerShieldThicknes, G4ThreeVector OutterShieldThicknes,
-		 G4ThreeVector ShieldDimensions,G4double ScintHouseThick,
-		 G4Material* InnerShieldMaterial, G4Material* OutterShieldMaterial){
+					   G4double TotalStackStart, G4double TotalStackEnd,
+					   G4ThreeVector InnerShieldThicknes, G4ThreeVector OutterShieldThicknes,
+					   G4ThreeVector ShieldDimensions,G4double ScintHouseThick,
+					   G4Material* InnerShieldMaterial, G4Material* OutterShieldMaterial) {
 
-	fmotherLV 		= dmotherLV;
-	fTotalStackStart 		= TotalStackStart;
-	fTotalStackEnd 	 		= TotalStackEnd;
-	fInnerShieldThickness	= InnerShieldThicknes;
-	fOutterShieldThickness	= OutterShieldThicknes;
-	shield1InnerHL 			= ShieldDimensions;
-    fScintHouseThick 		= ScintHouseThick;
-    fInnerShieldMaterial	= InnerShieldMaterial;
-    fOutterShieldMaterial	= OutterShieldMaterial;
+  fmotherLV 		= dmotherLV;
+  fTotalStackStart 		= TotalStackStart;
+  fTotalStackEnd 	 		= TotalStackEnd;
+  fInnerShieldThickness	= InnerShieldThicknes;
+  fOutterShieldThickness	= OutterShieldThicknes;
+  shield1InnerHL 			= ShieldDimensions;
+  fScintHouseThick 		= ScintHouseThick;
+  fInnerShieldMaterial	= InnerShieldMaterial;
+  fOutterShieldMaterial	= OutterShieldMaterial;
 
-  }
+}
 
 
 G4LogicalVolume* MilliQDetectorShield::ConstructShield() {

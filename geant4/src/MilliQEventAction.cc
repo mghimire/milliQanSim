@@ -82,11 +82,11 @@ MilliQEventAction::MilliQEventAction(MilliQRecorderBase* r, const boost::propert
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MilliQEventAction::~MilliQEventAction(){}
+MilliQEventAction::~MilliQEventAction() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MilliQEventAction::BeginOfEventAction(const G4Event* anEvent){
+void MilliQEventAction::BeginOfEventAction(const G4Event* anEvent) {
 
   //New event, add the user information object
   G4EventManager::GetEventManager()->SetUserInformation(new MilliQUserEventInformation);
@@ -101,7 +101,7 @@ void MilliQEventAction::BeginOfEventAction(const G4Event* anEvent){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
+void MilliQEventAction::EndOfEventAction(const G4Event * anEvent) {
 
   G4AnalysisManager * analysisManager = G4AnalysisManager::Instance();
   MilliQUserEventInformation * eventInformation = (MilliQUserEventInformation*)anEvent->GetUserInformation();
@@ -114,7 +114,7 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
   if(G4VVisManager::GetConcreteInstance()) {
     for(G4int i = 0; i < n_trajectories; i++) {
       MilliQTrajectory * trj = (MilliQTrajectory*)((*(anEvent->GetTrajectoryContainer()))[i]);
-      if(trj->GetParticleName()=="opticalphoton"){
+      if(trj->GetParticleName()=="opticalphoton") {
         trj->SetForceDrawTrajectory(fForcedrawphotons);
         trj->SetForceNoDrawTrajectory(fForcenophotons);
       }
@@ -158,9 +158,9 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
       eventInformation->IncEDep(edep); // track the total energy deposition for entire event
       eWeightPos += (*scintHC)[i]->GetPos() * edep; // calculate energy-weighted position of hits
       if(edep > edepMax) {
-	      edepMax = edep;//store max energy deposit
-	      G4ThreeVector posMax = (*scintHC)[i]->GetPos();
-	      eventInformation->SetPosMax(posMax, edep); // track the position and energy of largest energy deposit
+	edepMax = edep;//store max energy deposit
+	G4ThreeVector posMax = (*scintHC)[i]->GetPos();
+	eventInformation->SetPosMax(posMax, edep); // track the position and energy of largest energy deposit
       }
     }
 
@@ -206,21 +206,21 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
   // durp: what is the difference between pmtHC and pmtAllHC? pmtHC is used for eventInformation max energy and positions of hits
 
   bool PrintStats = false;
-  if(scintHC && pmtAllHC){
+  if(scintHC && pmtAllHC) {
 
     // For all hits in PMTs, record the time of hit in pmtTimes(PMT position, hit number)
     for(G4int j = 0; j < pmtAllHC->entries(); j++) {
       if((*pmtAllHC)[j]->GetPMTNumber() > -1) { // It was hit!
-	      PrintStats = true;
-	      pmtTime[(*pmtAllHC)[j]->GetPMTNumber()].push_back((*pmtAllHC)[j]->GetTime()) ;
+	PrintStats = true;
+	pmtTime[(*pmtAllHC)[j]->GetPMTNumber()].push_back((*pmtAllHC)[j]->GetTime()) ;
       }
     }
 
     // For all hits in scintillators, record the time and energy in scintTime/scintEnergy
     for(int i = 0;i < scintHC->entries(); i++) {
       if((*scintHC)[i]->GetCpNum() > -1) { // It was hit!
-	     scintTime[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetTime());
-	     scintEnergy[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetEdep());
+	scintTime[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetTime());
+	scintEnergy[(*scintHC)[i]->GetCpNum()].push_back((*scintHC)[i]->GetEdep());
       }
     }
 
@@ -233,25 +233,25 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
 
   MilliQAnalysis* mcpan = new MilliQAnalysis(pmtTime, scintTime, scintEnergy,fPTree);
 
-  if(mcpan->IsActive()){
-      // Output information to ROOT MilliQAll
-	  ActivePMT = mcpan->GetActivePMT();
-	  NumberPMTHits = mcpan->GetNumberPMTHits();
-	  PmtAllHitTimes = mcpan->GetPmtAllHitTimes();
-	  PmtMedianHitTimes = mcpan->GetPmtMedianHitTimes();
-	  TotalEnergyDeposit = mcpan->GetTotalEnergyDeposit();
-	  TimeOfFlight = mcpan->GetTimeOfFlight();
-	  analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 6, mcpan->GetFirstHitScintillator() );
-	  analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 7, eventInformation->GetPhotonCount_Scint() );
-	  analysisManager->AddNtupleRow(MilliQDataFormat::kAll);
+  if(mcpan->IsActive()) {
+    // Output information to ROOT MilliQAll
+    ActivePMT = mcpan->GetActivePMT();
+    NumberPMTHits = mcpan->GetNumberPMTHits();
+    PmtAllHitTimes = mcpan->GetPmtAllHitTimes();
+    PmtMedianHitTimes = mcpan->GetPmtMedianHitTimes();
+    TotalEnergyDeposit = mcpan->GetTotalEnergyDeposit();
+    TimeOfFlight = mcpan->GetTimeOfFlight();
+    analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 6, mcpan->GetFirstHitScintillator() );
+    analysisManager->FillNtupleIColumn(MilliQDataFormat::kAll, 7, eventInformation->GetPhotonCount_Scint() );
+    analysisManager->AddNtupleRow(MilliQDataFormat::kAll);
 
 
-      // Output information to ROOT MilliQCAEN
-	  WaveformVoltage = mcpan->GetWaveformVoltage();
-	  WaveformLengthPerChannel = mcpan->GetWaveformLengthPerChannel();
-	  analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 2, mcpan->GetFirstPMTTime());
-	  analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 3, mcpan->GetTimePerSample());
-	  analysisManager->AddNtupleRow(MilliQDataFormat::kCAEN);
+    // Output information to ROOT MilliQCAEN
+    WaveformVoltage = mcpan->GetWaveformVoltage();
+    WaveformLengthPerChannel = mcpan->GetWaveformLengthPerChannel();
+    analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 2, mcpan->GetFirstPMTTime());
+    analysisManager->FillNtupleFColumn(MilliQDataFormat::kCAEN, 3, mcpan->GetTimePerSample());
+    analysisManager->AddNtupleRow(MilliQDataFormat::kCAEN);
 
 
 
@@ -263,7 +263,7 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
 
 
 
-  if(fVerbose>0){//PrintStats){
+  if(fVerbose>0) {//PrintStats) {
     //End of event output. later to be controlled by a verbose level
     G4cout << "\tNumber of photons that hit PMTs in this event : "
            << eventInformation->GetHitCount() << G4endl;
@@ -296,7 +296,7 @@ void MilliQEventAction::EndOfEventAction(const G4Event * anEvent){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MilliQEventAction::SetSaveThreshold(G4int save){
+void MilliQEventAction::SetSaveThreshold(G4int save) {
   /*Sets the save threshold for the random number seed. If the number of photons
     generated in an event is lower than this, then save the seed for this event
     in a file called run###evt###.rndm

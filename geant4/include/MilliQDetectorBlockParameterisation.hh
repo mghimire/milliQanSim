@@ -13,24 +13,24 @@ class MilliQDetectorBlockParameterisation : public G4VPVParameterisation
 {
 public:
     
-    MilliQDetectorBlockParameterisation(G4ThreeVector  pN,
-                                        G4ThreeVector  pBlockDimensions,
-                                        G4ThreeVector  pGapDimensions);
+  MilliQDetectorBlockParameterisation(G4ThreeVector  pN,
+				      G4ThreeVector  pBlockDimensions,
+				      G4ThreeVector  pGapDimensions);
     
-    virtual ~MilliQDetectorBlockParameterisation();
+  virtual ~MilliQDetectorBlockParameterisation();
     
     
-    virtual void ComputeTransformation(const G4int pId,
-                                       G4VPhysicalVolume* pPV) const;
+  virtual void ComputeTransformation(const G4int pId,
+				     G4VPhysicalVolume* pPV) const;
     
-    void GetIdDimensionsFromId(G4int           pId,
-                               G4ThreeVector&  pIdDimensions) const;
+  void GetIdDimensionsFromId(G4int           pId,
+			     G4ThreeVector&  pIdDimensions) const;
     
-    G4int GetNumberOfBlocks(){return (G4int)(fN.x()*fN.y()*fN.z());}
-    G4ThreeVector GetStackDimensions();
+  G4int GetNumberOfBlocks() {return (G4int)(fN.x()*fN.y()*fN.z());}
+  G4ThreeVector GetStackDimensions();
     
 private:
     
-    G4ThreeVector fN;
-    G4ThreeVector fBlockDimensions, fGapDimensions;
+  G4ThreeVector fN;
+  G4ThreeVector fBlockDimensions, fGapDimensions;
 };

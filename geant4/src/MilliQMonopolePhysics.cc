@@ -114,7 +114,7 @@ MilliQMonopolePhysics::~MilliQMonopolePhysics()
 
 void MilliQMonopolePhysics::ConstructParticle()
 {
-	  fMpl = MilliQMonopole::MonopoleDefinition(fMonopoleMass, fMagCharge, fElCharge);
+  fMpl = MilliQMonopole::MonopoleDefinition(fMonopoleMass, fMagCharge, fElCharge);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -126,31 +126,31 @@ void MilliQMonopolePhysics::ConstructProcess()
   }
   
   G4PhysicsListHelper* ph = G4PhysicsListHelper::GetPhysicsListHelper();
-   G4ProcessManager* pManager = fMpl->GetProcessManager();
+  G4ProcessManager* pManager = fMpl->GetProcessManager();
 
-   // defined monopole parameters and binning
+  // defined monopole parameters and binning
 
-   G4double emin = fMonopoleMass/20000.;
-   if(emin < keV) { emin = keV; }
-   G4double emax = std::max(10.*TeV, fMonopoleMass*100);
-   G4int nbin = G4lrint(10*std::log10(emax/emin));
+  G4double emin = fMonopoleMass/20000.;
+  if(emin < keV) { emin = keV; }
+  G4double emax = std::max(10.*TeV, fMonopoleMass*100);
+  G4int nbin = G4lrint(10*std::log10(emax/emin));
 
 
-   G4hIonisation* hhioni = new G4hIonisation();
-     hhioni->SetDEDXBinning(nbin);
-     hhioni->SetMinKinEnergy(emin);
-     hhioni->SetMaxKinEnergy(emax);
-     ph->RegisterProcess(hhioni, fMpl);
-     pManager->AddProcess(hhioni,-1,2,2);
+  G4hIonisation* hhioni = new G4hIonisation();
+  hhioni->SetDEDXBinning(nbin);
+  hhioni->SetMinKinEnergy(emin);
+  hhioni->SetMaxKinEnergy(emax);
+  ph->RegisterProcess(hhioni, fMpl);
+  pManager->AddProcess(hhioni,-1,2,2);
 
-     G4double energyLimit = 1.*MeV;
-     G4hMultipleScattering* mscmcp = new G4hMultipleScattering();
-     G4WentzelVIModel* modelmcp = new G4WentzelVIModel();
-     modelmcp->SetActivationLowEnergyLimit(energyLimit);
-     mscmcp->SetEmModel(modelmcp, 1);
-     ph->RegisterProcess(mscmcp, fMpl);
+  G4double energyLimit = 1.*MeV;
+  G4hMultipleScattering* mscmcp = new G4hMultipleScattering();
+  G4WentzelVIModel* modelmcp = new G4WentzelVIModel();
+  modelmcp->SetActivationLowEnergyLimit(energyLimit);
+  mscmcp->SetEmModel(modelmcp, 1);
+  ph->RegisterProcess(mscmcp, fMpl);
 
-    ph->RegisterProcess(new G4StepLimiter(), fMpl);
+  ph->RegisterProcess(new G4StepLimiter(), fMpl);
 
 
 }

@@ -56,9 +56,9 @@
 
 MilliQSteppingAction::MilliQSteppingAction(MilliQRecorderBase* r, const G4int geometryVersion) : fRecorder(r), fOneStepPrimaries(false), fAlternate(geometryVersion) {
 
-	assert(fAlternate >=-10000);
+  assert(fAlternate >=-10000);
 
-	fSteppingMessenger = new MilliQSteppingMessenger(this);
+  fSteppingMessenger = new MilliQSteppingMessenger(this);
 
   fExpectedNextStatus = Undefined;
 }
@@ -97,7 +97,7 @@ void MilliQSteppingAction::UserSteppingAction(const G4Step * theStep) {
     }
   }
 
-  if(false){
+  if(false) {
     G4ProcessManager* pm = theStep->GetTrack()->GetDefinition()->GetProcessManager();
     G4int nprocesses = pm->GetProcessListLength();
     G4ProcessVector* pv = pm->GetProcessList();
@@ -143,7 +143,7 @@ void MilliQSteppingAction::UserSteppingAction(const G4Step * theStep) {
     }
   }
 
-  if(!thePostPV){//out of world (works well)
+  if(!thePostPV) {//out of world (works well)
     fExpectedNextStatus = Undefined;
     return;
   }

@@ -57,53 +57,53 @@ class MilliQPrimaryGeneratorMessenger;
 
 class MilliQPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
-  public:
-    MilliQPrimaryGeneratorAction(const boost::property_tree::ptree pt);
-    virtual ~MilliQPrimaryGeneratorAction();
+public:
+  MilliQPrimaryGeneratorAction(const boost::property_tree::ptree pt);
+  virtual ~MilliQPrimaryGeneratorAction();
 
-    virtual void GeneratePrimaries(G4Event* );
-    void GetLHEFourVectors();
-    void SetRndmFlag(G4String val) { fRndmFlag = val; }
-    void SetXVertex(G4double x);
-    void SetYVertex(G4double y);
-    void SetZVertex(G4double z);
-    void SetMomentumXVertex(G4double x);
-    void SetMomentumYVertex(G4double y);
-    void SetMomentumZVertex(G4double z);
-    void SetCalibEnergy(G4double e);
+  virtual void GeneratePrimaries(G4Event* );
+  void GetLHEFourVectors();
+  void SetRndmFlag(G4String val) { fRndmFlag = val; }
+  void SetXVertex(G4double x);
+  void SetYVertex(G4double y);
+  void SetZVertex(G4double z);
+  void SetMomentumXVertex(G4double x);
+  void SetMomentumYVertex(G4double y);
+  void SetMomentumZVertex(G4double z);
+  void SetCalibEnergy(G4double e);
 
-    static G4String GetPrimaryName();
+  static G4String GetPrimaryName();
 
-    G4ParticleGun* GetParticleGun() {return fParticleGun;}
+  G4ParticleGun* GetParticleGun() {return fParticleGun;}
 
-    // Set methods
-    void SetRandomFlag(G4bool );
-    static G4int neventLHE;
-    static G4bool firstPass;
-    static std::vector<std::vector<G4double> >	vertexList;
-    static std::vector<std::vector<G4double> > momentumList;
-    static std::vector<std::vector<G4double> > qmeList;
-
-
-  private:
-    G4ParticleGun*          fParticleGun; // G4 particle gun
-
-    MilliQPrimaryGeneratorMessenger* fGunMessenger; //messenger of this class
-    G4String                      fRndmFlag;     //flag for random impact point
+  // Set methods
+  void SetRandomFlag(G4bool );
+  static G4int neventLHE;
+  static G4bool firstPass;
+  static std::vector<std::vector<G4double> >	vertexList;
+  static std::vector<std::vector<G4double> > momentumList;
+  static std::vector<std::vector<G4double> > qmeList;
 
 
-    static G4ParticleDefinition* fgPrimaryParticle;
-    G4double fMomentumXVertex, fMomentumYVertex, fMomentumZVertex;
-    G4double fXVertex, fYVertex, fZVertex, fEnergy;
-    G4bool fVertexDefined, fCalibDefined;
+private:
+  G4ParticleGun*          fParticleGun; // G4 particle gun
 
-    G4double yRescale;
-    G4double zRescale;
+  MilliQPrimaryGeneratorMessenger* fGunMessenger; //messenger of this class
+  G4String                      fRndmFlag;     //flag for random impact point
 
-    G4String fPathname;
-    G4String fFilename;
-    const boost::property_tree::ptree fPTree;
-    boost::property_tree::ptree fParticlePTree;
+
+  static G4ParticleDefinition* fgPrimaryParticle;
+  G4double fMomentumXVertex, fMomentumYVertex, fMomentumZVertex;
+  G4double fXVertex, fYVertex, fZVertex, fEnergy;
+  G4bool fVertexDefined, fCalibDefined;
+
+  G4double yRescale;
+  G4double zRescale;
+
+  G4String fPathname;
+  G4String fFilename;
+  const boost::property_tree::ptree fPTree;
+  boost::property_tree::ptree fParticlePTree;
 
 
 

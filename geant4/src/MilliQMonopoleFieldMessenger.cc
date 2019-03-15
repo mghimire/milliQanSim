@@ -45,10 +45,10 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQMonopoleFieldMessenger::MilliQMonopoleFieldMessenger(MilliQMonopoleFieldSetup * fld)
-:G4UImessenger(),
- fField(fld),
- fFieldDir(0),
- fSetFieldCmd(0)
+  :G4UImessenger(),
+   fField(fld),
+   fFieldDir(0),
+   fSetFieldCmd(0)
  
 { 
   fFieldDir = new G4UIdirectory("/testex/fld/");
@@ -75,7 +75,7 @@ MilliQMonopoleFieldMessenger::~MilliQMonopoleFieldMessenger()
 void MilliQMonopoleFieldMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 { 
   if( command == fSetFieldCmd )
-   { fField->SetMagField(fSetFieldCmd->GetNewDoubleValue(newValue));}
+    { fField->SetMagField(fSetFieldCmd->GetNewDoubleValue(newValue));}
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

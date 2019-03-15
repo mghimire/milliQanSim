@@ -63,7 +63,7 @@ MilliQScintHit::MilliQScintHit(const MilliQScintHit &right) : G4VHit()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-const MilliQScintHit& MilliQScintHit::operator=(const MilliQScintHit &right){
+const MilliQScintHit& MilliQScintHit::operator=(const MilliQScintHit &right) {
   fEdep = right.fEdep;
   fEdelta = right.fEdelta;
   fEdepion = right.fEdepion;

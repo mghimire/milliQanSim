@@ -73,15 +73,15 @@ MilliQMonopoleFieldSetup* MilliQMonopoleFieldSetup::fMonopoleFieldSetup=0;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MilliQMonopoleFieldSetup::MilliQMonopoleFieldSetup()
- : fFieldManager(0),
-   fChordFinder(0),
-   fEquation(0),
-   fMonopoleEquation(0),
-   fMagneticField(0),
-   fStepper(0),
-   fMonopoleStepper(0),
-   fMinStep(0.0),
-   fMonopoleFieldMessenger(0)
+  : fFieldManager(0),
+    fChordFinder(0),
+    fEquation(0),
+    fMonopoleEquation(0),
+    fMagneticField(0),
+    fStepper(0),
+    fMonopoleStepper(0),
+    fMinStep(0.0),
+    fMonopoleFieldMessenger(0)
 {
   fMonopoleFieldMessenger = new MilliQMonopoleFieldMessenger(this);
 
@@ -92,13 +92,13 @@ MilliQMonopoleFieldSetup::MilliQMonopoleFieldSetup()
 MilliQMonopoleFieldSetup* MilliQMonopoleFieldSetup::GetMonopoleFieldSetup()
 {
 
-   if (0 == fMonopoleFieldSetup)
-   {
-     static MilliQMonopoleFieldSetup theInstance;
-     fMonopoleFieldSetup = &theInstance;
-   }
+  if (0 == fMonopoleFieldSetup)
+    {
+      static MilliQMonopoleFieldSetup theInstance;
+      fMonopoleFieldSetup = &theInstance;
+    }
    
-   return fMonopoleFieldSetup;
+  return fMonopoleFieldSetup;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -125,7 +125,7 @@ void MilliQMonopoleFieldSetup::SetMagField(G4double fieldValue)
       fMagneticField = new G4UniformMagField(G4ThreeVector(0., 0., fieldValue));        
       InitialiseAll();
     }
-   else
+  else
     {
       fMagneticField = 0;
       fFieldManager->SetDetectorField(fMagneticField);
@@ -138,13 +138,13 @@ void
 MilliQMonopoleFieldSetup::InitialiseAll()
 {
   fFieldManager = /*new G4FieldManager();*/G4TransportationManager::GetTransportationManager()
-                                          ->GetFieldManager();
+    ->GetFieldManager();
 
   fEquation = new G4Mag_UsualEqRhs(fMagneticField); 
   fMonopoleEquation = new MilliQMonopoleEquation(fMagneticField);
  
   fMinStep     = 1.*mm ; // minimal step of 1 mm is default
-                         G4cout<<"It got here fminstep!!" <<G4endl;
+  G4cout<<"It got here fminstep!!" <<G4endl;
   fMonopoleStepper = new G4ClassicalRK4( fMonopoleEquation, 8 ); // for time information..
   fStepper = new G4ClassicalRK4( fEquation );
 
@@ -157,25 +157,25 @@ MilliQMonopoleFieldSetup::InitialiseAll()
 void MilliQMonopoleFieldSetup::SetStepperAndChordFinder(G4int val)
 {
   if (fMagneticField)
-  {
-    fFieldManager->SetDetectorField(fMagneticField );
-
-    if(fChordFinder) delete fChordFinder;
-
-    switch (val)
     {
-      case 0:
-        fChordFinder = new G4ChordFinder( fMagneticField, fMinStep, fStepper);      
-        break;
-      case 1: 
-        fChordFinder = new G4ChordFinder( fMagneticField, fMinStep, fMonopoleStepper);
-        break;
-    }   
+      fFieldManager->SetDetectorField(fMagneticField );
+
+      if(fChordFinder) delete fChordFinder;
+
+      switch (val)
+	{
+	case 0:
+	  fChordFinder = new G4ChordFinder( fMagneticField, fMinStep, fStepper);      
+	  break;
+	case 1: 
+	  fChordFinder = new G4ChordFinder( fMagneticField, fMinStep, fMonopoleStepper);
+	  break;
+	}   
   
-    fFieldManager->SetChordFinder( fChordFinder );
-    fFieldManager->SetMaximumEpsilonStep(1.1*mm);
-    //   fFieldManager->SetDeltaOneStep( 0.5e-3 * mm );
-  }
+      fFieldManager->SetChordFinder( fChordFinder );
+      fFieldManager->SetMaximumEpsilonStep(1.1*mm);
+      //   fFieldManager->SetDeltaOneStep( 0.5e-3 * mm );
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -183,7 +183,7 @@ void MilliQMonopoleFieldSetup::SetStepperAndChordFinder(G4int val)
 G4FieldManager*  MilliQMonopoleFieldSetup::GetGlobalFieldManager()
 {
   return G4TransportationManager::GetTransportationManager()
-                          ->GetFieldManager();
+    ->GetFieldManager();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

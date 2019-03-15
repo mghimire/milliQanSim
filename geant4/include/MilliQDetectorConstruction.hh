@@ -55,15 +55,15 @@ public:
   void SetDefaults();
 
   //Get values
-  G4double GetHousingThickness(){return fD_mtl;}
-  G4double GetPMTRadius(){return fOuterRadius_pmt;}
+  G4double GetHousingThickness() {return fD_mtl;}
+  G4double GetPMTRadius() {return fOuterRadius_pmt;}
   G4int GetNblocksPerStack() { return NBlocks.x() * NBlocks.y() * NBlocks.z(); }
-  G4int GetNstacks(){return NStacks;}
-  G4int GetAlternateGeometry(){return fAlternate;}
+  G4int GetNstacks() {return NStacks;}
+  G4int GetAlternateGeometry() {return fAlternate;}
   inline const G4Material* GetScintMaterial() {return fScintillatorMaterial;};
 
   void SetHousingReflectivity(G4double );
-  G4double GetHousingReflectivity(){return fRefl;}
+  G4double GetHousingReflectivity() {return fRefl;}
 
   void SetMainScintYield(G4double );
   void DefineMaterials();
@@ -139,7 +139,7 @@ private:
   G4int fAlternate;
   static G4ThreadLocal G4GlobalMagFieldMessenger*  fMagFieldMessenger;
 
-//  G4UniformMagField* fMagField;
+  //  G4UniformMagField* fMagField;
   MilliQDetectorStack* fDetectorStack;
   MilliQMonopoleFieldSetup* fMonFieldSetup;
 
