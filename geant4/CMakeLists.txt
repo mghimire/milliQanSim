@@ -20,7 +20,7 @@ endif()
 #
 include(${Geant4_USE_FILE})
 
-set(CMAKE_CXX_FLAGS "-std=c++14")
+set(CMAKE_CXX_FLAGS "-std=c++1y")
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
 #
@@ -42,8 +42,6 @@ target_link_libraries(MilliQ ${Geant4_LIBRARIES} )
 # relies on these scripts being in the current working directory.
 #
 set(MilliQ_SCRIPTS
-    MilliQ.out
-    MilliQ.in
     gui.mac
     icons.mac
     run.png
