@@ -1,6 +1,8 @@
-git clone https://github.com/bpf6qc/milliq.git
+git clone https://github.com/milliQan-sw/milliQanSim.git
 mkdir build
 cd build
 cmake -DGeant4_DIR=/usr/geant4.10.02.p01-install/lib64/Geant4-10.2.1 /home/${USER}/path/to/milliq/geant4/
 make
 ./MilliQ
+# or edit config/particles.ini, PathName to reflect your path, then
+./MilliQ config/mcp.mac config/fourlayers.ini
