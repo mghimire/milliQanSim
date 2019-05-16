@@ -386,9 +386,9 @@ cout << "1" << endl;
   // Calculates NSig from likelihood ratio
   vector<double> NSig;
 
-  for (int i = 0; i < NBkg.size(); i++) {
+  for (int i = 0; i < NBkgd.size(); i++) {
     for (int j = 0; j < Alpha.size(); j++) {
-      setNSig(NBkg[i], Alpha[j], NSig);  //
+      setNSig(NBkgd[i], Alpha[j], NSig);  //
     }
   }
 
@@ -459,11 +459,14 @@ cout << "3" << endl;
   vector<vector<double>> Sensitivities;
   vector<double> sensitivityPre;
 
-cout << "4" << endl;
+  cout << "4" << endl;
 
   // Calculate the Sensitivities
   int NProcess = 5;  // We can through the masses, this tells us how many
                      // processes contribute given a mCP mass
+
+  //cout << XSectionUFO.size() << endl;
+
   for (unsigned int j = 0; j < XSectionUFO.size(); j++) {
 
     if (j >= XSectionJPsi.size()) NProcess = 4;
@@ -471,52 +474,52 @@ cout << "4" << endl;
 
     // Create the function and wrap it
     TF1 *fNEv = new TF1("fNEv", NEventsFunction, lowRange, upRange, 33);
-
+    
     // Set XSections for 1 - 5
     for (unsigned int i = 0; i < NProcess; i++) {
       fNEv->SetParameter(1 + i, XSection[i][j][0]);
     }
-
-cout << "efffit for 6-15" << endl;
+    
+    cout << "efffit for 6-15" << endl;
     // Set EffFit for 6 - 15
     for (unsigned int i = 0; i < NProcess; i++) {
-cout << "i j = " << i << " " << j << endl;
+      cout << "i j = " << i << " " << j << endl;
       fNEv->SetParameter(6 + 2 * i, EffFit[i][j][0]);
       fNEv->SetParameter(6 + 2 * i + 1, EffFit[i][j][1]);
-cout << "kay" << endl;
+      cout << "kay" << endl;
     }
-cout << "accept for 16-30" << endl;
+    cout << "accept for 16-30" << endl;
     // Set Accept for 16 - 30
     for (unsigned int i = 0; i < NProcess; i++) {
       fNEv->SetParameter(16 + 3 * i, Accept[i][j][0]);
       fNEv->SetParameter(16 + 3 * i + 1, Accept[i][j][1]);
       fNEv->SetParameter(16 + 3 * i + 2, Accept[i][j][2]);
     }
-cout << "num procs" << endl;
+    cout << "num procs" << endl;
     // Set Number of Processes
     fNEv->SetParameter(32, NProcess);
     sensitivityPre.clear();
     for (unsigned int a = 0; a < NSig.size(); a++) {
-
-cout << "lumi for 31 a = " << a << endl;
+      
+      cout << "lumi for 31 a = " << a << endl;
       // Set Lumi for 31
       fNEv->SetParameter(31, Lumi[a]);
       // Set NSig for 0
       fNEv->SetParameter(0, NSig[a]);
-
+      
       ROOT::Math::WrappedTF1 wf1(*fNEv);
       // Create the Integrator & Set parameters of the method
       ROOT::Math::BrentRootFinder brf;
       brf.SetFunction(wf1, lowRange, upRange);
       brf.Solve();
-
+      
       sensitivityPre.push_back(brf.Root());
     }
     Sensitivities.push_back(sensitivityPre);
   }
-
-cout << "5" << endl;
-
+  
+  cout << "5" << endl;
+  
   // Output in a form mathematica can read for doing easy plotting
   ofstream output;
   output.open("noWaveformSensitivities.dat");
@@ -536,10 +539,10 @@ cout << "5" << endl;
   }
   output << "}";
   output.close();
-
+  
   // ROOT
   // Write the plotting scripts for ROOT, currently easier to simply do them in
   // mathematica
-
+  
   return 0;
 }
